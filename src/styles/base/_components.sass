@@ -1,0 +1,119 @@
+.basic-btn
+  font-size: 1.25rem
+  font-weight: 500
+  letter-spacing: 1px
+  color: $color-white
+  background-color: $color-red
+  padding: 0.5rem 1rem
+  border: none
+  border-radius: $border-radius
+  opacity: 0.8
+  position: relative
+  cursor: pointer
+  transition-duration: 0.25s
+  margin: 0 0.25rem
+
+  &:hover
+    opacity: 1
+    transform: scale(1.05)
+
+.category
+  display: flex
+  justify-content: space-around
+  width: 100%
+  .category__item
+    cursor: pointer
+    color: $color-white
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 2rem
+    width: 7rem
+    height: 7rem
+    border-radius: 50%
+  .category__item:nth-child(odd)
+    background-color: $color-yellow
+    color: $color-grey
+  .category__item:nth-child(even)
+    background-color: $color-red
+
+#footer
+  color: $color-red
+  .contact__info
+    height: 8rem
+    padding: 1.8rem 2rem 1rem 4rem
+    background-color: green
+    background-color: #FAE1D2
+  .copyright
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 1.25rem
+    color: $color-white
+    height: 2.5rem
+    background-color: #E6756B
+
+#header
+  display: flex
+  width: 100%
+  // background-color: $color-yellow
+  height: 4rem
+  box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.2)
+  font-family: 'cwTeXYen', sans-serif
+  font-weight: 500
+  font-size: 1.5rem
+  font-family: $font-family
+  .wrap
+    justify-content: space-between
+  .header__intro
+    display: flex
+    align-items: center
+    .intro__logo
+      cursor: pointer
+      height: 4rem
+      width: 4rem
+      border-radius: 50%
+    .intro__webname
+      font-size: 1.25rem
+      font-weight: 500
+      .webname__engligh, .webname__chinese
+        margin: 0.15rem 0.75rem
+        color: $color-red
+      .webname__chinese
+        font-weight: bold
+  .header__nav
+    display: flex
+    align-items: center
+    color: $color-grey
+    box-sizing: border-box
+    .nav__home, .nav__newActivity
+      padding: 0.75rem 0.5rem
+      text-align: center
+      width: 7rem
+      margin: .25rem
+      border-radius: $border-radius
+      &:hover
+        background-color: $color-red
+        border-radius: 0.5rem
+        opacity: 0.8
+        transition-duration: 0.1s
+        color: $color-white
+    .proflie
+      svg
+        color: $color-red
+        width: 4.5rem
+        height: 4.5rem
+        padding: 1rem
+        &:hover
+          transform: scale(1.05)
+
+.searchBar
+  border-radius: 3px
+  padding: 1px 5px
+  border: 0
+  width: 250px
+  height: 35px
+  font-size: 1rem
+  color: $color-green
+  font-family: $font-family
+  margin: 0 0.5rem
