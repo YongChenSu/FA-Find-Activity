@@ -5,7 +5,7 @@ const SearchBar = () => {
     <>
       <form action="">
         <input
-          className="searchBar"
+          id="searchBar"
           type="text"
           name="search"
           placeholder="Find what you like" />
