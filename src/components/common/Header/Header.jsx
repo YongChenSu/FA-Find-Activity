@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react'
 import SearchBar from '../SearchBar'
-import LogoImg from '../../../assets/logo/FA_logo_bgwhite.png'
+import LogoImg from '../../../assets/img/FA_logo_bgwhite.png'
 import { Link } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
 
