@@ -1,14 +1,48 @@
-#home
-  width: 80%
-  max-width: 1280px
-  margin: 0 auto
-  font-family: $font-family
-  .carousel
-    display: flex
-    align-items: center
-    justify-content: center
-    text-align: center
-    width: 100%
-    height: 400px
-    background-color: $color-yellow
-    border: 1px solid #000
+#Home
+  .HomeContainer
+    max-width: 1200px
+    font-family: $font-family
+    background-color: #ccc
+    margin: 0 auto
+    &__Carousel
+      display: flex
+      align-items: center
+      justify-content: center
+      text-align: center
+      width: 100%
+      height: 500px
+      background-color: $color-yellow
+      border: 1px solid #000
+    &__ActPanel
+      display: flex
+      flex-wrap: wrap
+      justify-content: center
+      .ActPanel__Act
+        border: 1px solid #000
+        border-radius: $border-radius
+        display: flex
+        max-width: 350px
+        margin: 20px
+        flex-direction: column
+        .Act__Cap
+          height: 200px
+          .Cap__Img
+            border-radius: $border-radius
+            max-height: 100%
+        .Act__Footer
+          border-top: 1px solid #000
+          height: 100%
+          .Footer__Title
+          .Footer__Detail
+            +flexX(space-between)
+            .Detail__LeftBlock
+              +flexX(flex-start)
+              .Footer__Heart
+                svg
+                  color: $color-red
+                  width: 1.5rem
+                  height: 1.5rem
+                  margin: 0 0.5rem
+              .Footer__Date
+  .Hide
+    visibility: hidden
