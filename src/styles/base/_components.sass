@@ -72,10 +72,11 @@
   display: flex
   justify-content: space-around
   width: 100%
+  padding: 2rem 4rem
   .category__item:nth-child(odd)
-    @include circleBtn(7rem, $color-red, $color-white)
+    +circleBtn(7rem, $color-red, $color-white)
   .category__item:nth-child(even)
-    @include circleBtn(7rem, $color-green, $color-white)
+    +circleBtn(7rem, $color-green, $color-white)
 
 #footer
   font-family: $font-family
