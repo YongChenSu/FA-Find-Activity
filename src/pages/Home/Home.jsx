@@ -4,40 +4,60 @@ import Footer from '../../components/common/Footer'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Category from '../../components/common/Category'
 import Button from '../../components/common/Button'
-import logoImg from '../../assets/img/FA_logo_bgwhite.png'
-import { AiOutlineHeart } from 'react-icons/ai'
-// import { AiFillHeart } from 'react-icons/ai'
+import logoImg from '../../assets/img/FA_logo.png'
+import theme from '../../styles/base/variable.js'
+import styled from '@emotion/styled'
+import { ThemeProvider } from 'emotion-theming'
+import { keyframes } from '@emotion/core'
+import ActCard from '../../components/common/ActCard'
+// import { keyframes } from "styled-components"
+
+const HomeContainer = styled.div`
+`
+
+const Carousel = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 500px;
+  background-color: ${({ theme }) => theme.$colorYellow };
+  border: 1px solid #000;
+`
+
+const ActContainer = styled.div`
+  max-width: 1200px;
+  font-family: ${({ theme }) => theme.$fontFamily};
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2rem 0;
+`
+
 
 const Home = () => {
   return (
     <>
-      <div id="Home">
-        <Header />
-        <div className="HomeContainer">
-          <div className="HomeContainer__Carousel">carousel</div>
-          <Category />
-          <div className="HomeContainer__ActPanel">
-            <div className="ActPanel__Act">
-              <Link className="Act__Cap">
-                <img className="Cap__Img" src={logoImg} alt="活動" />
-              </Link>
-              <div className="Act__Footer">
-                <div className="Footer__Title">這是一個活動標題這是一個活動標題</div>
-                <div className="Footer__Detail">
-                  <div className="Detail__LeftBlock">
-                    <li className="Footer__Heart"><AiOutlineHeart /></li>
-                    <li className="Footer__Date">2020/11/04</li>
-                  </div>
-                  <div className="Detail__RightBlock">
-                    <Button text="詳細內容" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </div>
+      <ThemeProvider theme={theme}>
+        <HomeContainer>
+          <Header />
+          <Carousel />
+            <ActContainer>
+              <ActCard />
+              <ActCard />
+              <ActCard />
+              <ActCard />
+              <ActCard />
+              <ActCard />
+              <ActCard />
+              <ActCard />
+              <ActCard />
+            </ActContainer>
+          <Footer />
+        </HomeContainer>
+      </ThemeProvider>
     </>
   )
 }
