@@ -16,7 +16,9 @@ const Header = (props) => {
       <header id="header">
         <div className="flex wrap">
           <div className="header__intro">
-            <img src={LogoImg} className="intro__logo"></img>
+            <Link to='/'>
+              <img src={LogoImg} className="intro__logo"></img>
+            </Link>
             <div className="intro__webname">
               <div className="webname__engligh">Find Activity</div>
               <div className="webname__chinese">找活動</div>
