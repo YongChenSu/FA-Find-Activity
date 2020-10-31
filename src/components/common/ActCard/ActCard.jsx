@@ -112,6 +112,7 @@ const ActCard = () => {
             <Button>詳細內容</Button>
           </ActDetail>
         </ActFooter>
+        {/* <HollowHeartIcon /> */}
         </Link>
       </Act>
     </>

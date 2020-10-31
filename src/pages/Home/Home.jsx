@@ -1,11 +1,12 @@
 import React from 'react'
-import Header from '../../components/common/Header'
-import Footer from '../../components/common/Footer'
-import Button from '../../components/common/Button'
-import theme from '../../styles/base/variable.js'
 import styled from '@emotion/styled'
+import theme from '../../styles/base/variable.js'
 import { ThemeProvider } from 'emotion-theming'
+import Button from '../../components/common/Button'
+import Header from '../../components/common/Header'
+import Category from '../../components/common/Category'
 import ActCard from '../../components/common/ActCard'
+import Footer from '../../components/common/Footer'
 import { FaAngleDoubleRight } from 'react-icons/fa'
 
 const HomeContainer = styled.div`
@@ -29,14 +30,13 @@ const ActContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 2rem 0;
 `
 
 const MoreActButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 0 2rem 0;
+  margin: 1rem 0 2rem 0;
   height: 3rem;
 `
 
@@ -64,6 +64,7 @@ const Home = () => {
         <HomeContainer>
           <Header />
           <Carousel />
+            <Category />
             <ActContainer>
               <ActCard />
               <ActCard />
