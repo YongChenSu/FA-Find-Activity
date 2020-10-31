@@ -1,15 +1,15 @@
-import styled from '@emotion/styled'
 import React from 'react'
+import Button from '../Button'
+import styled from '@emotion/styled'
+import LogoImg from '../../../assets/img/FA_logo.png'
 import { AiFillGithub } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { ImMail4 } from 'react-icons/im'
-import LogoImg from '../../../assets/img/FA_logo.png'
-import Button from '../Button'
 
 const Container = styled.div`
-  font-family: $font-family;
-  color: ${({theme}) => theme.main.$colorRed};
-  background-color: ${({theme}) => theme.main.$colorLightOrange};
+  font-family: ${({theme}) => theme.$fontFamily};
+  color: ${({theme}) => theme.$colorRed};
+  background-color: ${({theme}) => theme.$colorLightOrange};
 `
 
 const Wrapper = styled.div`
@@ -27,8 +27,8 @@ const Info = styled.div`
 `
 
 const FanPage = styled.div`
-  color: ${({theme}) => theme.main.$colorRed};
-  background-color: ${({ theme }) => theme.main.$colorYellow};
+  color: ${({theme}) => theme.$colorRed};
+  background-color: ${({ theme }) => theme.$colorYellow};
   height: 100px;
   width: 200px;
 `
@@ -48,7 +48,7 @@ const Logo = styled.img`
 
 const WebNameEnglish = styled.div`
   margin: 0.5rem 0.75rem;
-  color: ${({theme}) => theme.main.$colorRed};
+  color: ${({theme}) => theme.$colorRed};
   display: flex;
   align-items: center;
 `
@@ -61,8 +61,8 @@ const Contact = styled.ul`
 
 const ContactButton = styled(Button)`
   margin: 0 0 0.75rem 0;
-  background-color: ${({theme}) => theme.main.$colorRed};
-  color:  ${({theme}) => theme.main.$colorWhite};
+  background-color: ${({theme}) => theme.$colorRed};
+  color:  ${({theme}) => theme.$colorWhite};
 `
 
 const Media = styled.div`
@@ -71,21 +71,21 @@ const Media = styled.div`
   align-items: center;
 
   svg {
+    cursor: pointer;
     width: 2.5rem;
     height: 2.5rem;
   }
 `
-
-
 
 const Copyright = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  color: ${({ theme }) => theme.main.$colorWhite};
+  color: ${({ theme }) => theme.$colorWhite};
   height: 2rem;
-  background-color: ${({theme}) => theme.main.$colorRed};
+  background-color: ${({theme}) => theme.$colorRed};
+  font-family: ${({theme}) => theme.$fontFamily};
 `
 
 const Footer = () => {
