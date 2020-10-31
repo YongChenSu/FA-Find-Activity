@@ -6,10 +6,8 @@ import logoImg from '../../../assets/img/FA_logo.png'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { AiFillHeart } from 'react-icons/ai'
 
-
-
 const Act = styled.div`
-  border-radius: ${({ theme }) => theme.$borderRadius };
+  border-radius: ${({ theme }) => theme.main.$borderRadius };
   display: flex;
   max-width: 330px;
   margin: 20px;
@@ -20,6 +18,14 @@ const Act = styled.div`
     transition-duration: 0.3s;
     transform: translate(-5px,-5px);
     box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.3);
+
+    button {
+      transform: scale(1.1);
+      color: ${({ theme }) => theme.main.$colorWhite};
+      box-shadow: inset -3.5rem 0 0 0 ${({ theme }) => theme.main.$colorRed}, inset 3.5rem 0 0 0 ${({ theme }) => theme.main.$colorRed};
+      border-color: ${({ theme }) => theme.main.$colorRed};
+      border: 0;
+    }
   }
 `
 
@@ -28,18 +34,16 @@ const ActCap = styled.div`
 `
 
 const ActImg = styled.img`
-  border-top-left-radius: ${({ theme }) => theme.$borderRadius };
-  border-top-right-radius: ${({ theme }) => theme.$borderRadius };
+  border-top-left-radius: ${({ theme }) => theme.main.$borderRadius };
+  border-top-right-radius: ${({ theme }) => theme.main.$borderRadius };
   max-height: 100%; 
 `
 
 const ActFooter = styled.div`
-  /* background-color: ${({ theme }) => theme.$colorYellow}; */
   max-height: 100%;
   padding: 0.5rem;
-  /* border-top: 0.3rem solid ${({ theme }) => theme.$colorYellow}; */
-  border-bottom-left-radius: ${({ theme }) => theme.$borderRadius };
-  border-bottom-right-radius: ${({ theme }) => theme.$borderRadius };
+  border-bottom-left-radius: ${({ theme }) => theme.main.$borderRadius };
+  border-bottom-right-radius: ${({ theme }) => theme.main.$borderRadius };
 `
 
 const ActTitle = styled.div`
@@ -59,18 +63,18 @@ const ActDetailLeftBlock = styled.div`
   justify-content: flex-start;
 `
 
-const HeartIcon = styled.button`
+const HeartIcon = styled.div`
   background-color: transparent;
   border: 0;
+  padding: 0 0.25rem;
   &:focus {
     outline: 0;
   }
 
-
   svg {
     cursor: pointer;
     display: flex;
-    color: ${({ theme }) => theme.$colorRed};
+    color: ${({ theme }) => theme.main.$colorRed};
     width: 2rem;
     height: 2rem;
   }
@@ -78,16 +82,16 @@ const HeartIcon = styled.button`
 
 const Date = styled.div`
   margin: 0.5rem;
-  color: ${({ theme }) => theme.$colorGrey};
+  color: ${({ theme }) => theme.main.$colorGrey};
 `
 
 const ActCard = () => {
-  let [isAddToFavorite, setIsAddToFavorite] = useState(false)
+  let [isAddToFavorite, setIsAddToFavorite] = useState(true)
 
   return (
     <>
       <Act>
-        {/* <Link to='/activity'> */}
+        <Link to='/activity'>
         <ActCap>
           <ActImg src={logoImg} alt="活動" />
         </ActCap>
@@ -95,18 +99,21 @@ const ActCard = () => {
           <ActTitle>這是一個活動標題這是一個活動標題這是一個活動標題</ActTitle>
           <ActDetail>
             <ActDetailLeftBlock>
-              <HeartIcon onClick={() => setIsAddToFavorite(!isAddToFavorite)}>
-                {isAddToFavorite
-                  ? <AiOutlineHeart />
-                  : <AiFillHeart />
-                }
-              </HeartIcon>
+              <Link>
+                <HeartIcon onClick={() => setIsAddToFavorite(!isAddToFavorite)}>
+                  {isAddToFavorite
+                    ? <AiOutlineHeart />
+                    : <AiFillHeart />
+                  }
+                </HeartIcon>
+              </Link>
               <Date>2020/10/25</Date>
             </ActDetailLeftBlock>
             <Button>詳細內容</Button>
           </ActDetail>
         </ActFooter>
-        {/* </Link> */}
+        {/* <HollowHeartIcon /> */}
+        </Link>
       </Act>
     </>
   )
