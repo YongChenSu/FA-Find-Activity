@@ -1,18 +1,18 @@
-import styled from '@emotion/styled'
 import React, { Component, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import styled from '@emotion/styled'
 import Button from '../Button'
 import logoImg from '../../../assets/img/FA_logo.png'
-import { AiOutlineHeart } from 'react-icons/ai'
-import { AiFillHeart } from 'react-icons/ai'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 
 const Act = styled.div`
-  border-radius: ${({ theme }) => theme.main.$borderRadius };
+  border-radius: ${({ theme }) => theme.$borderRadius };
   display: flex;
-  max-width: 330px;
-  margin: 20px;
+  max-width: 350px;
+  margin: 1rem;
   flex-direction: column;
   box-shadow: 3px 5px 8px 3px rgba(0, 0, 0, 0.15);
+  font-family: ${({theme}) => theme.$fontFamily};
 
   &:hover {
     transition-duration: 0.3s;
@@ -21,29 +21,29 @@ const Act = styled.div`
 
     button {
       transform: scale(1.1);
-      color: ${({ theme }) => theme.main.$colorWhite};
-      box-shadow: inset -3.5rem 0 0 0 ${({ theme }) => theme.main.$colorRed}, inset 3.5rem 0 0 0 ${({ theme }) => theme.main.$colorRed};
-      border-color: ${({ theme }) => theme.main.$colorRed};
+      color: ${({ theme }) => theme.$colorWhite};
+      box-shadow: inset -3.5rem 0 0 0 ${({ theme }) => theme.$colorRed}, inset 3.5rem 0 0 0 ${({ theme }) => theme.$colorRed};
+      border-color: ${({ theme }) => theme.$colorRed};
       border: 0;
     }
   }
 `
 
 const ActCap = styled.div`
-  height: 270px;
+  height: 220px;
 `
 
 const ActImg = styled.img`
-  border-top-left-radius: ${({ theme }) => theme.main.$borderRadius };
-  border-top-right-radius: ${({ theme }) => theme.main.$borderRadius };
+  border-top-left-radius: ${({ theme }) => theme.$borderRadius };
+  border-top-right-radius: ${({ theme }) => theme.$borderRadius };
   max-height: 100%; 
 `
 
 const ActFooter = styled.div`
   max-height: 100%;
   padding: 0.5rem;
-  border-bottom-left-radius: ${({ theme }) => theme.main.$borderRadius };
-  border-bottom-right-radius: ${({ theme }) => theme.main.$borderRadius };
+  border-bottom-left-radius: ${({ theme }) => theme.$borderRadius };
+  border-bottom-right-radius: ${({ theme }) => theme.$borderRadius };
 `
 
 const ActTitle = styled.div`
@@ -74,7 +74,7 @@ const HeartIcon = styled.div`
   svg {
     cursor: pointer;
     display: flex;
-    color: ${({ theme }) => theme.main.$colorRed};
+    color: ${({ theme }) => theme.$colorRed};
     width: 2rem;
     height: 2rem;
   }
@@ -82,7 +82,7 @@ const HeartIcon = styled.div`
 
 const Date = styled.div`
   margin: 0.5rem;
-  color: ${({ theme }) => theme.main.$colorGrey};
+  color: ${({ theme }) => theme.$colorGrey};
 `
 
 const ActCard = () => {
