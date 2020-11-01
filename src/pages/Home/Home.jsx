@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import theme from '../../styles/base/variable.js'
 import { ThemeProvider } from 'emotion-theming'
@@ -10,7 +10,8 @@ import Footer from '../../components/common/Footer'
 import { FaAngleDoubleRight } from 'react-icons/fa'
 
 const HomeContainer = styled.div`
-  font-family: ${({ theme}) => theme.main.$fontFamily};
+  font-family: ${({ theme}) => theme.$fontFamily};
+  padding-top: 4rem;
 `
 
 const Carousel = styled.div`
@@ -19,9 +20,8 @@ const Carousel = styled.div`
   justify-content: center;
   text-align: center;
   width: 100%;
-  height: 500px;
-  background-color: ${({ theme }) => theme.main.$colorYellow };
-  border: 1px solid #000;
+  height: 380px;
+  background-color: ${({ theme }) => theme.$colorYellow };
 `
 
 const ActContainer = styled.div`
@@ -47,8 +47,8 @@ const MoreActButton = styled(Button)`
   justify-content: center;
   
   &:hover {
-    color: ${({ theme }) => theme.main.$colorWhite};
-    box-shadow: inset 22rem 0 0 0 ${({ theme }) => theme.main.$colorRed};
+    color: ${({ theme }) => theme.$colorWhite};
+    box-shadow: inset 22rem 0 0 0 ${({ theme }) => theme.$colorRed};
     border: 0;
   }
 
@@ -58,32 +58,34 @@ const MoreActButton = styled(Button)`
 `
 
 const Home = () => {
+  const [currentTheme, setCurrentTheme] = useState('main');
+
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme[currentTheme]}>
+        <Header />
         <HomeContainer>
-          <Header />
           <Carousel />
-            <Category />
-            <ActContainer>
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-            </ActContainer>
-            <MoreActButtonContainer>
-              <MoreActButton>
-                尋找更多活動
-                <FaAngleDoubleRight />
-              </MoreActButton>
-            </MoreActButtonContainer>
-          <Footer />
+          <Category />
+          <ActContainer>
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+          </ActContainer>
+          <MoreActButtonContainer>
+            <MoreActButton>
+              尋找更多活動
+              <FaAngleDoubleRight />
+            </MoreActButton>
+          </MoreActButtonContainer>
         </HomeContainer>
+        <Footer />
       </ThemeProvider>
     </>
   )

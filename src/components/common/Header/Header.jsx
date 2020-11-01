@@ -16,7 +16,9 @@ const Header = (props) => {
       <header id="header">
         <div className="flex wrap">
           <div className="header__intro">
-            <img src={LogoImg} className="intro__logo"></img>
+            <Link to='/'>
+              <img src={LogoImg} className="intro__logo"></img>
+            </Link>
             <div className="intro__webname">
               <div className="webname__engligh">Find Activity</div>
               <div className="webname__chinese">找活動</div>
@@ -24,9 +26,9 @@ const Header = (props) => {
             <SearchBar />
           </div>
           <div className="header__nav">
-            <Link to='/activity' className="nav__home">找活動</Link>
+            <Link to='/FindActivity' className="nav__home">找活動</Link>
             {isShowNewActivity
-              ? <Link to='/newActivity' className="nav__newActivity">建立活動</Link>
+              ? <Link to='/NewActivity' className="nav__newActivity">建立活動</Link>
               : ''
             }
             {isLogin
