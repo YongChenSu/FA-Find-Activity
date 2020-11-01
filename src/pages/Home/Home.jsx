@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import theme from '../../styles/base/variable.js'
 import { ThemeProvider } from 'emotion-theming'
@@ -22,7 +22,6 @@ const Carousel = styled.div`
   width: 100%;
   height: 380px;
   background-color: ${({ theme }) => theme.$colorYellow };
-
 `
 
 const ActContainer = styled.div`
@@ -59,30 +58,32 @@ const MoreActButton = styled(Button)`
 `
 
 const Home = () => {
+  const [currentTheme, setCurrentTheme] = useState('main');
+
   return (
     <>
-      <ThemeProvider theme={theme.main}>
+      <ThemeProvider theme={theme[currentTheme]}>
         <Header />
         <HomeContainer>
           <Carousel />
-            <Category />
-            <ActContainer>
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-              <ActCard />
-            </ActContainer>
-            <MoreActButtonContainer>
-              <MoreActButton>
-                尋找更多活動
-                <FaAngleDoubleRight />
-              </MoreActButton>
-            </MoreActButtonContainer>
+          <Category />
+          <ActContainer>
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+            <ActCard />
+          </ActContainer>
+          <MoreActButtonContainer>
+            <MoreActButton>
+              尋找更多活動
+              <FaAngleDoubleRight />
+            </MoreActButton>
+          </MoreActButtonContainer>
         </HomeContainer>
         <Footer />
       </ThemeProvider>
