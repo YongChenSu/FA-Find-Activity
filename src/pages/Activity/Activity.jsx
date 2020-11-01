@@ -1,132 +1,117 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import theme from '../../styles/base/variable.js'
 import { ThemeProvider } from 'emotion-theming'
 import Button from '../../components/common/Button'
 import Header from '../../components/common/Header'
-import Category from '../../components/common/Category'
-import ActCard from '../../components/common/ActCard'
 import Footer from '../../components/common/Footer'
-import { FaAngleDoubleRight } from 'react-icons/fa'
-import LogoImg from '../../assets/img/FA_logo.png'
 
 const ActivityContainer = styled.div`
+  font-family: ${({ theme}) => theme.$fontFamily};
+  font-size: 1.5rem;
   padding-top: 4rem;
 `
 
-const ActContainer = styled.div`
-  max-width: 1200px;
+const ActivityWrapper = styled.div`
+  max-width: 80%;
   margin: 0 auto;
+`
+
+const Banner = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 380px;
+  background-color: ${({ theme }) => theme.$colorYellow };
 `
 
-const SelectContainer = styled.div`
-  margin: 0 auto;
+const ActInfoContainer = styled.div`
+  padding: 2rem 4rem;
+  & > ul {
+    padding: 0.5rem 0;
+  }
+
+  & > ul > li:nth-child(1) {
+    color: ${({ theme }) => theme.$colorRed};
+    font-weight: bold;
+    margin: 0 0 0.25rem 0;
+  }
+`
+
+const Title = styled.div`
+  font-size: 3rem;
+  font-weight: bold;
+`
+
+const Weather = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
+  margin: 1rem 0 2  rem 0;
 `
 
-const Select = styled.select`
-  width: 200px;
-  height: 2.5rem;
-  font-size: 1.25rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  color: ${({ theme }) => theme.$colorRed};
-  padding: 0.25rem 0.5rem;
-  border: none;
+const Card = styled.div`
+  height: 200px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.$colorLightGreen};
+  border: 1px solid grey;
+  margin: 0 0.5rem;
   border-radius: ${({ theme }) => theme.$borderRadius };
-  opacity: 0.8;
-  position: relative;
-  margin: 1rem;
-  border: 1.5px solid ${({ theme }) => theme.$colorRed};
-  
-  &:focus {
-    outline: 0;
-  }
-`
-
-const Option = styled.option`
-  color: black;
-  background: white;
-  font-weight: small;
-  display: flex;
-  white-space: pre;
-  min-height: 20px;
-  padding: 0px 2px 1px;
-`
-
-const MoreActButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0 2rem 0;
-  height: 3rem;
-`
-
-const MoreActButton = styled(Button)`
-  width: 330px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  &:hover {
-    color: ${({ theme }) => theme.$colorWhite};
-    box-shadow: inset 22rem 0 0 0 ${({ theme }) => theme.$colorRed};
-    border: 0;
-  }
-
-  svg {
-    margin: 0 0.5rem;
-  }
+  text-align: center;
+  line-height: 200px;
 `
 
 const Activity = () => {
+  const [currentTheme, setCurrentTheme] = useState('main')
+  const title = '  涼州詞王翰 - 古詩誦賞'
+  const tag = '美食'
+  const time = '2020/11/01'
+  const location = '臺北市松山區'
+  const introduction = '葡萄美酒夜光杯，欲飲琵琶馬上催，醉臥沙場君莫笑，古來征戰幾人回。葡萄美酒夜光杯，欲飲琵琶馬上催，醉臥沙場君莫笑，古來征戰幾人回。葡萄美酒夜光杯，欲飲琵琶馬上催，醉臥沙場君莫笑，古來征戰幾人回。'
+  
+  const actInfo = {
+    title,
+    tag,
+    time,
+    location,
+    introduction,
+  }
+
   return (
     <>
-      <ThemeProvider theme={theme.main}>
+      <ThemeProvider theme={theme[currentTheme]}>
         <Header />
         <ActivityContainer>
-          <Category />
-          <SelectContainer>
-            <Select>
-              <Option value="" hidden>活動日期</Option>
-              <Option value="1" >2020/11</Option>
-              <Option value="2" >2020/12</Option>
-              <Option value="3" >2021/01</Option>
-            </Select>
-            <Select>
-              <Option value="" hidden>活動地點</Option>
-              <Option value="1" >北部</Option>
-              <Option value="2" >中部</Option>
-              <Option value="3" >南部</Option>
-              <Option value="4" >東部、離島</Option>
-            </Select>
-            <Select>
-              <Option value="" hidden>活動價格</Option>
-              <Option value="1" >500 ↓</Option>
-              <Option value="2" >500~1000</Option>
-              <Option value="3" >1000~2000</Option>
-              <Option value="2" >2000 ↑</Option>
-            </Select>
-          </SelectContainer>
-          <ActContainer>
-            <ActCard />
-            <ActCard />
-            <ActCard />
-            <ActCard />
-            <ActCard />
-            <ActCard />
-          </ActContainer>
-          <MoreActButtonContainer>
-            <MoreActButton>
-              尋找更多活動
-              <FaAngleDoubleRight />
-            </MoreActButton>
-          </MoreActButtonContainer>
+          <ActivityWrapper>
+            <Banner />
+            <ActInfoContainer>
+              <Title>{actInfo.title}</Title>
+              <ul>
+                <li>分類</li>
+                <li>{actInfo.tag}</li>
+              </ul>
+              <ul>
+                <li>時間</li>
+                <li>{actInfo.time}</li>
+              </ul>
+              <ul>
+                <li>地點</li>
+                <li>{actInfo.location}</li>
+              </ul>
+              <ul>
+                <li>簡介</li>
+                <li>{actInfo.introduction}</li>
+              </ul>
+            </ActInfoContainer>
+            <Weather>
+              <Card>MON</Card>
+              <Card>TUE</Card>
+              <Card>WED</Card>
+              <Card>THU</Card>
+              <Card>FRI</Card>
+            </Weather>
+          </ActivityWrapper>
         </ActivityContainer>
         <Footer />
       </ThemeProvider>
@@ -134,4 +119,4 @@ const Activity = () => {
   )
 }
 
-export default Activity 
+export default Activity
