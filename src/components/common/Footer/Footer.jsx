@@ -13,9 +13,10 @@ const Container = styled.div`
 `
 
 const Wrapper = styled.div`
-  width: 80%;
   display: flex;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
 `
 
 const Info = styled.div`
