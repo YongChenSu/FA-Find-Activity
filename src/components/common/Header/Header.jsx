@@ -26,9 +26,9 @@ const Header = (props) => {
             <SearchBar />
           </div>
           <div className="header__nav">
-            <Link to='/activity' className="nav__home">找活動</Link>
+            <Link to='/FindActivity' className="nav__home">找活動</Link>
             {isShowNewActivity
-              ? <Link to='/newActivity' className="nav__newActivity">建立活動</Link>
+              ? <Link to='/NewActivity' className="nav__newActivity">建立活動</Link>
               : ''
             }
             {isLogin
