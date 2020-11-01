@@ -87,11 +87,12 @@ const Date = styled.div`
 
 const ActCard = () => {
   let [isAddToFavorite, setIsAddToFavorite] = useState(true)
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
       <Act>
-        <Link to='/activity'>
+        <Link to='/Activity'>
         <ActCap>
           <ActImg src={logoImg} alt="活動" />
         </ActCap>
