@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import theme from '../../styles/base/variable.js'
 import { ThemeProvider } from 'emotion-theming'
@@ -84,7 +84,18 @@ const MoreActButton = styled(Button)`
   }
 `
 
+const EXHIBITION_BASE_URL = `https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6`
+
+
 const FindActivity = () => {
+  const getExhibitionData = () => {
+    fetch(`${EXHIBITION_BASE_URL}`)
+      .then((response) => response.json())
+      .then(data => console.log(data))
+  }
+
+  getExhibitionData()
+
   return (
     <>
       <ThemeProvider theme={theme.main}>
