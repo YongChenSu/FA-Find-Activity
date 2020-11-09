@@ -1,2 +1,1 @@
-import Activity from './Activity.jsx'
-export default Activity
+export { default } from "./Activity.jsx";

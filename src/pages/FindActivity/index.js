@@ -1,2 +1,1 @@
-import FindActivity from './FindActivity.jsx'
-export default FindActivity
+export { default } from "./FindActivity.jsx";
