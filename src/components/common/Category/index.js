@@ -1,2 +1,1 @@
-import Category from './Category.jsx'
-export default Category
+export { default } from "./Category.jsx";
