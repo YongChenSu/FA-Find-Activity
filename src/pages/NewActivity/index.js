@@ -1,2 +1,1 @@
-import NewActivity from './NewActivity'
-export default NewActivity
+export { default } from "./NewActivity";
