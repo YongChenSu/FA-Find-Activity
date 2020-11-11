@@ -12,7 +12,16 @@ const theme = {
 
     $borderRadius: "0.5rem",
     $fontFamily: "'Varela Round', 'cwTeXYen'",
-  },
-}
 
-export default theme
+    weatherCardBackgroundColor: "#eee",
+    weatherCardColor: "#666",
+    weatherCardHighLight: "#555",
+  },
+  dark: {
+    weatherCardBackgroundColor: "#666",
+    weatherCardColor: "#ddd",
+    weatherCardHighLight: "#fff",
+  },
+};
+
+export default theme;
