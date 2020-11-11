@@ -85,6 +85,8 @@ const MoreActButton = styled(Button)`
 
 const EXHIBITION_BASE_URL = `https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6`;
 
+const title = "活動標題";
+
 const FindActivity = () => {
   const getExhibitionData = () => {
     fetch(`${EXHIBITION_BASE_URL}`)
@@ -128,7 +130,7 @@ const FindActivity = () => {
           </Select>
         </SelectContainer>
         <ActivityContainer>
-          <ActivityCard />
+          <ActivityCard title={title} />
           <ActivityCard />
           <ActivityCard />
           <ActivityCard />

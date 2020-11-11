@@ -86,7 +86,7 @@ const Date = styled.div`
   color: ${({ theme }) => theme.$colorGrey};
 `;
 
-const ActivityCard = () => {
+const ActivityCard = ({ title }) => {
   let [isAddToFavorite, setIsAddToFavorite] = useState(true);
 
   return (
@@ -96,9 +96,7 @@ const ActivityCard = () => {
           <ActivityImg src={logoImg} alt="活動" />
         </ActivityCap>
         <ActivityFooter>
-          <ActivityTitle>
-            這是一個活動標題這是一個活動標題這是一個活動標題
-          </ActivityTitle>
+          <ActivityTitle>{title}</ActivityTitle>
           <ActivityDetail>
             <ActivityDetailLeftBlock>
               <Link>
