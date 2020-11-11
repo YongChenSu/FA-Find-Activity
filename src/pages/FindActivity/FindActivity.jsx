@@ -128,7 +128,7 @@ const FindActivity = () => {
           </Select>
         </SelectContainer>
         <ActivityContainer>
-          <ActivityCard />
+          <ActivityCard title={title} />
           <ActivityCard />
           <ActivityCard />
           <ActivityCard />

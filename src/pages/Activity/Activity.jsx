@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import styled from "@emotion/styled";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
-import dayjs from "dayjs";
-import { TiWeatherPartlySunny } from "react-icons/ti";
-import { WiStrongWind } from "react-icons/wi";
-import { IoIosUmbrella } from "react-icons/io";
-import { VscLoading } from "react-icons/vsc";
-import { BiRefresh } from "react-icons/bi";
-import { WiThermometer } from "react-icons/wi";
+import { getMoment } from "../../utils/helpers";
+import { ThemeProvider } from "emotion-theming";
+import theme from "../../styles/base/variable";
+import WeatherCard from "../../components/common/WeatherCard";
 
 const ActivityContainer = styled.div`
   font-family: ${({ theme }) => theme.$fontFamily};
@@ -57,114 +54,13 @@ const WeatherContainer = styled.div`
   margin: 1rem 0 2rem 0;
 `;
 
-const WeatherCard = styled.div`
-  color: ${({ theme }) => theme.$colorRed};
-  width: 200px;
-  border: 1px solid ${({ theme }) => theme.$colorRed};
-  box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
-  margin: 0 0.25rem;
-  border-radius: ${({ theme }) => theme.$borderRadius};
-  padding: 0.5rem;
-`;
-
-const Location = styled.div`
-  font-size: 2.5rem;
-`;
-
-const Description = styled.div`
-  font-size: 1rem;
-`;
-
-const CurrentWeather = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 0.75rem 0 0.5rem 0;
-  svg {
-    width: 3.25rem;
-    height: 3.25rem;
-  }
-`;
-
-const Temperature = styled.div`
-  font-size: 3.25rem;
-`;
-
-const Celsius = styled.div`
-  font-size: 1rem;
-`;
-
-const AirFlow = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 0.5rem;
-  font-weight: 300;
-
-  svg {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 0 0.5rem 0 0;
-  }
-`;
-
-const Rain = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 0.5rem;
-  font-weight: 300;
-
-  svg {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 0 0.5rem 0 0;
-  }
-`;
-
-const TemperatureRange = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 0.5rem;
-  font-weight: 300;
-
-  svg {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 0 0.5rem 0 0;
-  }
-`;
-
-const Refresh = styled.div`
-  font-size: 0.5rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 0.5rem 0 0 0;
-
-  svg {
-    margin-left: 0.5rem;
-    width: 1rem;
-    height: 1rem;
-    cursor: pointer;
-
-    animation: rotate infinite 1.5s linear;
-    animation-duration: ${({ isLoading }) => (isLoading ? "1.5s" : "0s")};
-  }
-
-  @keyframes rotate {
-    from {
-      transform: rotate(360deg);
-    }
-    to {
-      transform: rotate(0deg);
-    }
-  }
-`;
-
-const title = "  涼州詞王翰 - 古詩誦賞";
+const title = `年輪說`;
 const tag = "美食";
 const time = "2020/11/01";
 const location = "臺北市松山區";
-const introduction =
-  "葡萄美酒夜光杯，欲飲琵琶馬上催，醉臥沙場君莫笑，古來征戰幾人回。葡萄美酒夜光杯，欲飲琵琶馬上催，醉臥沙場君莫笑，古來征戰幾人回。葡萄美酒夜光杯，欲飲琵琶馬上催，醉臥沙場君莫笑，古來征戰幾人回。";
+const introduction = `一份滷味豆皮，兩包鹹水雞，三串炭烤玉米，四是芒果雪花冰，點了車輪餅，奶油加芋泥，
+  飽到脹氣，再繼續，四十花生麻吉，百元不找零，千層麵點下去，萬巒豬腳放一起，吃這麼多東西
+，還瘦不拉機，真是個 bad lady`;
 
 const actInfo = {
   title,
@@ -178,6 +74,62 @@ const BASE_URL =
   "https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization";
 const AUTHORIZATION_KEY = "CWB-15DFF2FC-FFFB-49E9-BF7F-EBB9164F4B47";
 const LOCATION_NAME = "臺北";
+
+const fetchCurrentWeatherData = () => {
+  return fetch(`${BASE_URL}=${AUTHORIZATION_KEY}&locationName=${LOCATION_NAME}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const locationData = data.records.location[0];
+      const weatherElements = locationData.weatherElement.reduce(
+        (neededElements, item) => {
+          if (["WDSD", "TEMP"].includes(item.elementName)) {
+            neededElements[item.elementName] = item.elementValue;
+          }
+          return neededElements;
+        },
+        {}
+      );
+
+      return {
+        observationTime: locationData.time.obsTime,
+        locationName: locationData.locationName,
+        temperature: weatherElements.TEMP,
+        windSpeed: weatherElements.WDSD,
+      };
+    });
+};
+
+const FORECAST_BASE_URL =
+  "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization";
+const LOCATION_NAME_FORECAST = "臺北市";
+
+const fetchForecastData = () => {
+  return fetch(
+    `${FORECAST_BASE_URL}=${AUTHORIZATION_KEY}&locationName=${LOCATION_NAME_FORECAST}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const locationData = data.records.location[0];
+      const weatherElements = locationData.weatherElement.reduce(
+        (neededElements, item) => {
+          if (["Wx", "PoP", "CI", "MinT", "MaxT"].includes(item.elementName)) {
+            neededElements[item.elementName] = item.time[0].parameter;
+          }
+          return neededElements;
+        },
+        {}
+      );
+
+      return {
+        description: weatherElements.Wx.parameterName,
+        weatherCode: weatherElements.Wx.parameterValue,
+        rainPossibility: weatherElements.PoP.parameterName,
+        comfortability: weatherElements.CI.parameterName,
+        minTemperature: weatherElements.MinT.parameterName,
+        maxTemperature: weatherElements.MaxT.parameterName,
+      };
+    });
+};
 
 const Activity = () => {
   const [currentTheme, setCurrentTheme] = useState("main");
@@ -194,89 +146,32 @@ const Activity = () => {
     maxTemperature: "",
     isLoading: true,
   });
-
+  const moment = useMemo(() => getMoment(LOCATION_NAME_FORECAST), []);
   useEffect(() => {
-    getCurrentWeatherData();
-    getForecastData();
-  }, []);
+    setCurrentTheme(moment === "day" ? "main" : "dark");
+  }, [moment]);
 
-  const getCurrentWeatherData = () => {
+  const fetchData = useCallback(async () => {
     setWeatherData((prevState) => ({
       ...prevState,
       isLoading: true,
     }));
 
-    fetch(`${BASE_URL}=${AUTHORIZATION_KEY}&locationName=${LOCATION_NAME}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const locationData = data.records.location[0];
-        const weatherElements = locationData.weatherElement.reduce(
-          (neededElements, item) => {
-            if (["WDSD", "TEMP"].includes(item.elementName)) {
-              neededElements[item.elementName] = item.elementValue;
-            }
-            return neededElements;
-          },
-          {}
-        );
+    const [currentWeather, weatherForecast] = await Promise.all([
+      fetchCurrentWeatherData(),
+      fetchForecastData(),
+    ]);
 
-        setWeatherData((prevState) => ({
-          ...prevState,
-          observationTime: locationData.time.obsTime,
-          locationName: locationData.locationName,
-          temperature: weatherElements.TEMP,
-          windSpeed: weatherElements.WDSD,
-          isLoading: false,
-        }));
-      });
-  };
+    setWeatherData({
+      ...currentWeather,
+      ...weatherForecast,
+      isLoading: false,
+    });
+  });
 
-  const FORECAST_BASE_URL =
-    "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization";
-  const LOCATION_NAME_FORECAST = "臺北市";
-  const getForecastData = () => {
-    fetch(
-      `${FORECAST_BASE_URL}=${AUTHORIZATION_KEY}&locationName=${LOCATION_NAME_FORECAST}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const locationData = data.records.location[0];
-        const weatherElements = locationData.weatherElement.reduce(
-          (neededElements, item) => {
-            if (
-              ["Wx", "PoP", "CI", "MinT", "MaxT"].includes(item.elementName)
-            ) {
-              neededElements[item.elementName] = item.time[0].parameter;
-            }
-            return neededElements;
-          },
-          {}
-        );
-
-        setWeatherData((preState) => ({
-          ...preState,
-          description: weatherElements.Wx.parameterName,
-          weatherCode: weatherElements.Wx.parameterValue,
-          rainPossibility: weatherElements.PoP.parameterName,
-          comfortability: weatherElements.CI.parameterName,
-          minTemperature: weatherElements.MinT.parameterName,
-          maxTemperature: weatherElements.MaxT.parameterName,
-        }));
-      });
-  };
-
-  const {
-    observationTime,
-    locationName,
-    description,
-    windSpeed,
-    temperature,
-    rainPossibility,
-    isLoading,
-    comfortability,
-    minTemperature,
-    maxTemperature,
-  } = weatherData;
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -303,47 +198,15 @@ const Activity = () => {
               <li>{actInfo.introduction}</li>
             </ul>
           </ActInfoContainer>
-
-          <WeatherContainer>
-            <WeatherCard>
-              <Location>{locationName}</Location>
-              <Description>
-                {description} {comfortability}
-              </Description>
-              <CurrentWeather>
-                <Temperature>{Math.round(temperature)}</Temperature>
-                <Celsius>°C</Celsius>
-                <TiWeatherPartlySunny />
-              </CurrentWeather>
-              <AirFlow>
-                <WiStrongWind />
-                {windSpeed} m/h
-              </AirFlow>
-              <Rain>
-                <IoIosUmbrella />
-                {rainPossibility}%
-              </Rain>
-              <TemperatureRange>
-                <WiThermometer />
-                <div>{minTemperature} °</div>
-                <div>{maxTemperature} °</div>
-              </TemperatureRange>
-              <Refresh
-                onClick={() => {
-                  getCurrentWeatherData();
-                  getForecastData();
-                }}
-                isLoading={isLoading}
-              >
-                最後觀測時間：
-                {new Intl.DateTimeFormat("zh-TW", {
-                  hour: "numeric",
-                  minute: "numeric",
-                }).format(dayjs(observationTime))}{" "}
-                {isLoading ? <VscLoading /> : <BiRefresh />}
-              </Refresh>
-            </WeatherCard>
-          </WeatherContainer>
+          <ThemeProvider theme={theme[currentTheme]}>
+            <WeatherContainer>
+              <WeatherCard
+                weatherData={weatherData}
+                moment={moment}
+                fetchData={fetchData}
+              />
+            </WeatherContainer>
+          </ThemeProvider>
         </ActivityWrapper>
       </ActivityContainer>
       <Footer />
