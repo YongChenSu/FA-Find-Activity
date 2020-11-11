@@ -4,11 +4,12 @@ import styled from "@emotion/styled";
 import Button from "../Button";
 import logoImg from "../../../assets/img/FA_logo.png";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { GoLocation } from "react-icons/go";
 
 const ActivityCardContainer = styled(Link)`
   border-radius: ${({ theme }) => theme.$borderRadius};
   display: flex;
-  max-width: 350px;
+  max-width: 300px;
   margin: 1rem;
   flex-direction: column;
   box-shadow: 3px 5px 8px 3px rgba(0, 0, 0, 0.15);
@@ -31,7 +32,7 @@ const ActivityCardContainer = styled(Link)`
 `;
 
 const ActivityCap = styled.div`
-  height: 220px;
+  height: 250px;
 `;
 
 const ActivityImg = styled.img`
@@ -48,8 +49,30 @@ const ActivityFooter = styled.div`
 `;
 
 const ActivityTitle = styled.div`
-  font-size: 1.25rem;
-  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  margin: 0.75rem 0;
+`;
+
+const ActivityLocation = styled.div`
+  display: flex;
+  align-items: center;
+
+  svg {
+    color: ${({ theme }) => theme.$colorRed};
+    margin: 0 0.25rem 0 0;
+  }
+`;
+
+const ActivityDescription = styled.div`
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 0.25rem 0.25rem 1rem 0;
+  color: ${({ theme }) => theme.$colorLightGrey};
 `;
 
 const ActivityDetail = styled.div`
@@ -86,7 +109,7 @@ const Date = styled.div`
   color: ${({ theme }) => theme.$colorGrey};
 `;
 
-const ActivityCard = ({ title }) => {
+const ActivityCard = ({ title, time, locationName, description }) => {
   let [isAddToFavorite, setIsAddToFavorite] = useState(true);
 
   return (
@@ -97,6 +120,11 @@ const ActivityCard = ({ title }) => {
         </ActivityCap>
         <ActivityFooter>
           <ActivityTitle>{title}</ActivityTitle>
+          <ActivityLocation>
+            <GoLocation />
+            {locationName}
+          </ActivityLocation>
+          <ActivityDescription>{description}</ActivityDescription>
           <ActivityDetail>
             <ActivityDetailLeftBlock>
               <Link>
@@ -104,7 +132,7 @@ const ActivityCard = ({ title }) => {
                   {isAddToFavorite ? <AiOutlineHeart /> : <AiFillHeart />}
                 </HeartIcon>
               </Link>
-              <Date>2020/10/25</Date>
+              <Date>{time}</Date>
             </ActivityDetailLeftBlock>
             <Button>詳細內容</Button>
           </ActivityDetail>

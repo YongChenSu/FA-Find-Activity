@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
@@ -6,7 +6,6 @@ import Category from "../../components/common/Category";
 import ActivityCard from "../../components/common/ActivityCard";
 import Footer from "../../components/common/Footer";
 import { FaAngleDoubleRight } from "react-icons/fa";
-import LogoImg from "../../assets/img/FA_logo.png";
 
 const FindActivityContainer = styled.div`
   padding-top: 4rem;
@@ -86,14 +85,24 @@ const MoreActButton = styled(Button)`
 const EXHIBITION_BASE_URL = `https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6`;
 
 const FindActivity = () => {
-  const getExhibitionData = () => {
+  // const [exhibitionData, setExhibitionData] = useState({
+  //   title: '展覽標題',
+  //   time: '時間',
+  //   locationName: '展覽地點',
+  //   description:
+  //     '展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊',
+  // })
+  const [exhibitionData, setExhibitionData] = useState(null);
+  const fetchExhibitionData = () => {
     fetch(`${EXHIBITION_BASE_URL}`)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => setExhibitionData(data));
   };
 
-  getExhibitionData();
-
+  // useEffect(fetchExhibitionData, [])
+  fetchExhibitionData();
+  console.log(exhibitionData);
+  console.log(exhibitionData[0]);
   return (
     <>
       <Header />
@@ -128,12 +137,14 @@ const FindActivity = () => {
           </Select>
         </SelectContainer>
         <ActivityContainer>
-          <ActivityCard title={title} />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
+          {/* {exhibitionData.map((data) => (
+            <ActivityCard
+              title={data.title}
+              time={data.showInfo.time}
+              locationName={data.showInfo.locationName}
+              description={data.descriptionFilterHtml}
+            />
+          ))} */}
         </ActivityContainer>
         <MoreActButtonContainer>
           <MoreActButton>
