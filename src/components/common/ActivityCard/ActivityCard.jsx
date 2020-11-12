@@ -32,13 +32,14 @@ const ActivityCardContainer = styled(Link)`
 `;
 
 const ActivityCap = styled.div`
-  height: 250px;
+  /* min-height: 250px; */
 `;
 
 const ActivityImg = styled.img`
   border-top-left-radius: ${({ theme }) => theme.$borderRadius};
   border-top-right-radius: ${({ theme }) => theme.$borderRadius};
-  max-height: 100%;
+  height: 250px;
+  background: center/cover no-repeat;
 `;
 
 const ActivityFooter = styled.div`
@@ -49,6 +50,14 @@ const ActivityFooter = styled.div`
 `;
 
 const ActivityTitle = styled.div`
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  height: 3.5rem;
   font-size: 1.5rem;
   margin: 0.75rem 0;
 `;
@@ -109,14 +118,15 @@ const Date = styled.div`
   color: ${({ theme }) => theme.$colorGrey};
 `;
 
-const ActivityCard = ({ title, time, locationName, description }) => {
+const ActivityCard = ({ title, time, locationName, description, imageUrl }) => {
   let [isAddToFavorite, setIsAddToFavorite] = useState(true);
-
+  console.log(JSON.parse(JSON.stringify({ title })));
+  console.log(JSON.parse(JSON.stringify({ imageUrl })));
   return (
     <>
       <ActivityCardContainer to="/activity">
         <ActivityCap>
-          <ActivityImg src={logoImg} alt="活動" />
+          <ActivityImg src={imageUrl} alt="活動" />
         </ActivityCap>
         <ActivityFooter>
           <ActivityTitle>{title}</ActivityTitle>

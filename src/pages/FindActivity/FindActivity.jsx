@@ -92,17 +92,14 @@ const FindActivity = () => {
   //   description:
   //     '展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊展覽資訊',
   // })
-  const [exhibitionData, setExhibitionData] = useState(null);
+  const [exhibitionData, setExhibitionData] = useState([]);
   const fetchExhibitionData = () => {
     fetch(`${EXHIBITION_BASE_URL}`)
       .then((response) => response.json())
       .then((data) => setExhibitionData(data));
   };
 
-  // useEffect(fetchExhibitionData, [])
-  fetchExhibitionData();
-  console.log(exhibitionData);
-  console.log(exhibitionData[0]);
+  useEffect(fetchExhibitionData, []);
   return (
     <>
       <Header />
@@ -133,18 +130,21 @@ const FindActivity = () => {
             <Option value="1">500 ↓</Option>
             <Option value="2">500~1000</Option>
             <Option value="3">1000~2000</Option>
-            <Option value="2">2000 ↑</Option>
+            <Option value="4">2000 ↑</Option>
           </Select>
         </SelectContainer>
         <ActivityContainer>
-          {/* {exhibitionData.map((data) => (
-            <ActivityCard
-              title={data.title}
-              time={data.showInfo.time}
-              locationName={data.showInfo.locationName}
-              description={data.descriptionFilterHtml}
-            />
-          ))} */}
+          {exhibitionData
+            .filter((data) => data.imageUrl !== "")
+            .map((data) => (
+              <ActivityCard
+                imageUrl={data.imageUrl}
+                title={data.title}
+                time={data.endDate}
+                locationName={data.showInfo[0].locationName}
+                description={data.descriptionFilterHtml}
+              />
+            ))}
         </ActivityContainer>
         <MoreActButtonContainer>
           <MoreActButton>
