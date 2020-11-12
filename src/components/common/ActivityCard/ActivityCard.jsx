@@ -9,7 +9,7 @@ import { GoLocation } from "react-icons/go";
 const ActivityCardContainer = styled(Link)`
   border-radius: ${({ theme }) => theme.$borderRadius};
   display: flex;
-  max-width: 300px;
+  max-width: 320px;
   margin: 1rem;
   flex-direction: column;
   box-shadow: 3px 5px 8px 3px rgba(0, 0, 0, 0.15);
@@ -32,19 +32,20 @@ const ActivityCardContainer = styled(Link)`
 `;
 
 const ActivityCap = styled.div`
-  /* min-height: 250px; */
+  height: 220px;
 `;
 
 const ActivityImg = styled.img`
   border-top-left-radius: ${({ theme }) => theme.$borderRadius};
   border-top-right-radius: ${({ theme }) => theme.$borderRadius};
-  height: 250px;
-  background: center/cover no-repeat;
+  height: 100%;
+  background: center center no-repeat;
+  background-size: cover;
 `;
 
 const ActivityFooter = styled.div`
   max-height: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-bottom-left-radius: ${({ theme }) => theme.$borderRadius};
   border-bottom-right-radius: ${({ theme }) => theme.$borderRadius};
 `;
@@ -57,9 +58,9 @@ const ActivityTitle = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  height: 3.5rem;
-  font-size: 1.5rem;
-  margin: 0.75rem 0;
+  height: 3.25rem;
+  font-size: 1.25rem;
+  margin: 0.25rem 0;
 `;
 
 const ActivityLocation = styled.div`
