@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
@@ -6,7 +6,7 @@ import Category from "../../components/common/Category";
 import ActivityCard from "../../components/common/ActivityCard";
 import Footer from "../../components/common/Footer";
 import { FaAngleDoubleRight } from "react-icons/fa";
-import LogoImg from "../../assets/img/FA_logo.png";
+import LoadingImg from "../../components/common/LoadingImg";
 
 const FindActivityContainer = styled.div`
   padding-top: 4rem;
@@ -86,62 +86,76 @@ const MoreActButton = styled(Button)`
 const EXHIBITION_BASE_URL = `https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6`;
 
 const FindActivity = () => {
-  const getExhibitionData = () => {
+  const [loading, setLoading] = useState(true);
+  const [exhibitionData, setExhibitionData] = useState([]);
+  const fetchExhibitionData = () => {
     fetch(`${EXHIBITION_BASE_URL}`)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => setExhibitionData(data));
   };
 
-  getExhibitionData();
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+  }, []);
 
+  useEffect(fetchExhibitionData, []);
   return (
     <>
       <Header />
-      <FindActivityContainer>
-        <Category />
-        <SelectContainer>
-          <Select>
-            <Option value="" hidden>
-              活動日期
-            </Option>
-            <Option value="1">2020/11</Option>
-            <Option value="2">2020/12</Option>
-            <Option value="3">2021/01</Option>
-          </Select>
-          <Select>
-            <Option value="" hidden>
-              活動地點
-            </Option>
-            <Option value="1">北部</Option>
-            <Option value="2">中部</Option>
-            <Option value="3">南部</Option>
-            <Option value="4">東部、離島</Option>
-          </Select>
-          <Select>
-            <Option value="" hidden>
-              活動價格
-            </Option>
-            <Option value="1">500 ↓</Option>
-            <Option value="2">500~1000</Option>
-            <Option value="3">1000~2000</Option>
-            <Option value="2">2000 ↑</Option>
-          </Select>
-        </SelectContainer>
-        <ActivityContainer>
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-        </ActivityContainer>
-        <MoreActButtonContainer>
-          <MoreActButton>
-            尋找更多活動
-            <FaAngleDoubleRight />
-          </MoreActButton>
-        </MoreActButtonContainer>
-      </FindActivityContainer>
+      {loading === false ? (
+        <FindActivityContainer>
+          <Category />
+          <SelectContainer>
+            <Select>
+              <Option value="" hidden>
+                活動日期
+              </Option>
+              <Option value="1">2020/11</Option>
+              <Option value="2">2020/12</Option>
+              <Option value="3">2021/01</Option>
+            </Select>
+            <Select>
+              <Option value="" hidden>
+                活動地點
+              </Option>
+              <Option value="1">北部</Option>
+              <Option value="2">中部</Option>
+              <Option value="3">南部</Option>
+              <Option value="4">東部、離島</Option>
+            </Select>
+            <Select>
+              <Option value="" hidden>
+                活動價格
+              </Option>
+              <Option value="1">500 ↓</Option>
+              <Option value="2">500~1000</Option>
+              <Option value="3">1000~2000</Option>
+              <Option value="4">2000 ↑</Option>
+            </Select>
+          </SelectContainer>
+          <ActivityContainer>
+            {exhibitionData
+              .filter((data) => data.imageUrl !== "")
+              .map((data) => (
+                <ActivityCard
+                  imageUrl={data.imageUrl}
+                  title={data.title}
+                  time={data.endDate}
+                  locationName={data.showInfo[0].locationName}
+                  description={data.descriptionFilterHtml}
+                />
+              ))}
+          </ActivityContainer>
+          <MoreActButtonContainer>
+            <MoreActButton>
+              尋找更多活動
+              <FaAngleDoubleRight />
+            </MoreActButton>
+          </MoreActButtonContainer>
+        </FindActivityContainer>
+      ) : (
+        <LoadingImg />
+      )}
       <Footer />
     </>
   );
