@@ -55,7 +55,7 @@ const MoreActivityButton = styled(Button)`
   }
 `;
 
-const Home = () => {
+const Home = ({}) => {
   return (
     <>
       <Header />
