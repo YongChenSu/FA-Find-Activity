@@ -167,11 +167,11 @@ const Activity = () => {
       ...weatherForecast,
       isLoading: false,
     });
-  });
+  }, []);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return (
     <>
