@@ -36,22 +36,24 @@ const CategoryItemGreen = styled(CategoryItemRed)`
 `;
 
 const Category = () => {
+  const handleChangeLecture = () => {};
+
   return (
     <CategoryContainer>
       <Link to="find-activity">
-        <CategoryItemRed>講座</CategoryItemRed>
+        <CategoryItemRed onClick={handleChangeLecture}>講座</CategoryItemRed>
       </Link>
       <Link to="find-activity">
-        <CategoryItemGreen>聯誼</CategoryItemGreen>
+        <CategoryItemGreen>音樂</CategoryItemGreen>
       </Link>
       <Link to="find-activity">
-        <CategoryItemRed>旅行</CategoryItemRed>
+        <CategoryItemRed>親子</CategoryItemRed>
       </Link>
       <Link to="find-activity">
         <CategoryItemGreen>展覽</CategoryItemGreen>
       </Link>
       <Link to="find-activity">
-        <CategoryItemRed>美食</CategoryItemRed>
+        <CategoryItemRed>電影</CategoryItemRed>
       </Link>
     </CategoryContainer>
   );
