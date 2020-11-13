@@ -173,6 +173,14 @@ import ActivityCard from "../../components/common/ActivityCard";
 import Footer from "../../components/common/Footer";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import LoadingImg from "../../components/common/LoadingImg";
+import {
+  fetchExhibitionData,
+  fetchParentChildActivityData,
+  fetchMoviesData,
+  fetchMusicPerformanceData,
+  fetchLectureData,
+  fetchVillageFoodData,
+} from "../../../src/WebAPI";
 
 const FindActivityContainer = styled.div`
   padding-top: 4rem;
@@ -249,51 +257,48 @@ const MoreActButton = styled(Button)`
   }
 `;
 
-const EXHIBITION_BASE_URL = `https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6`;
-
-const fetchExhibitionData = () => {
-  return fetch(`${EXHIBITION_BASE_URL}`)
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    });
-};
-
 const FindActivity = () => {
   const [loading, setLoading] = useState(true);
-
-  // const [exhibitionData, setExhibitionData] = useState([])
   const [activityData, setActivityData] = useState({});
-
   const fetchActivityData = useCallback(async () => {
     setActivityData((prevState) => ({
       ...prevState,
     }));
 
-    const [exhibitionData] = await Promise.all([fetchExhibitionData()]);
+    const [
+      exhibitionData,
+      parentChildActivityData,
+      moviesData,
+      musicPerformanceData,
+      lectureData,
+      // villageFoodData,
+    ] = await Promise.all([
+      fetchExhibitionData(),
+      fetchParentChildActivityData(),
+      fetchMoviesData(),
+      fetchMusicPerformanceData(),
+      fetchLectureData(),
+      // fetchVillageFoodData(),
+    ]);
 
     setActivityData((prevState) => ({
       ...exhibitionData,
+      ...parentChildActivityData,
+      ...moviesData,
+      ...musicPerformanceData,
+      ...lectureData,
+      // ...villageFoodData,
     }));
   }, []);
-
-  // const fetchExhibitionData = () => {
-  //   fetch(`${EXHIBITION_BASE_URL}`)
-  //     .then((response) => response.json())
-  //     .then((data) => setExhibitionData(data))
-  // }
-
-  // useEffect(fetchExhibitionData, [])
 
   useEffect(() => {
     fetchActivityData();
   }, [fetchActivityData]);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => setLoading(false), 2500);
   }, []);
 
-  console.log(JSON.parse(JSON.stringify(activityData)));
   return (
     <>
       <Header />

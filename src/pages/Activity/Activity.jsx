@@ -7,6 +7,7 @@ import { getMoment } from "../../utils/helpers";
 import { ThemeProvider } from "emotion-theming";
 import theme from "../../styles/base/variable";
 import WeatherCard from "../../components/common/WeatherCard";
+import { fetchCurrentWeatherData, fetchForecastData } from "../../WebAPI";
 
 const ActivityContainer = styled.div`
   font-family: ${({ theme }) => theme.$fontFamily};
@@ -70,66 +71,7 @@ const actInfo = {
   introduction,
 };
 
-const BASE_URL =
-  "https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization";
-const AUTHORIZATION_KEY = "CWB-15DFF2FC-FFFB-49E9-BF7F-EBB9164F4B47";
-const LOCATION_NAME = "臺北";
-
-const fetchCurrentWeatherData = () => {
-  return fetch(`${BASE_URL}=${AUTHORIZATION_KEY}&locationName=${LOCATION_NAME}`)
-    .then((response) => response.json())
-    .then((data) => {
-      const locationData = data.records.location[0];
-      const weatherElements = locationData.weatherElement.reduce(
-        (neededElements, item) => {
-          if (["WDSD", "TEMP"].includes(item.elementName)) {
-            neededElements[item.elementName] = item.elementValue;
-          }
-          return neededElements;
-        },
-        {}
-      );
-
-      return {
-        observationTime: locationData.time.obsTime,
-        locationName: locationData.locationName,
-        temperature: weatherElements.TEMP,
-        windSpeed: weatherElements.WDSD,
-      };
-    });
-};
-
-const FORECAST_BASE_URL =
-  "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization";
 const LOCATION_NAME_FORECAST = "臺北市";
-
-const fetchForecastData = () => {
-  return fetch(
-    `${FORECAST_BASE_URL}=${AUTHORIZATION_KEY}&locationName=${LOCATION_NAME_FORECAST}`
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      const locationData = data.records.location[0];
-      const weatherElements = locationData.weatherElement.reduce(
-        (neededElements, item) => {
-          if (["Wx", "PoP", "CI", "MinT", "MaxT"].includes(item.elementName)) {
-            neededElements[item.elementName] = item.time[0].parameter;
-          }
-          return neededElements;
-        },
-        {}
-      );
-
-      return {
-        description: weatherElements.Wx.parameterName,
-        weatherCode: weatherElements.Wx.parameterValue,
-        rainPossibility: weatherElements.PoP.parameterName,
-        comfortability: weatherElements.CI.parameterName,
-        minTemperature: weatherElements.MinT.parameterName,
-        maxTemperature: weatherElements.MaxT.parameterName,
-      };
-    });
-};
 
 const Activity = () => {
   const [currentTheme, setCurrentTheme] = useState("main");
