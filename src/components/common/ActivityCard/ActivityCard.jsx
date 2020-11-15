@@ -33,7 +33,9 @@ const ActivityCardContainer = styled(Link)`
   }
 `;
 
-const ActivityCap = styled.div``;
+const ActivityCap = styled.div`
+  height: 220px;
+`;
 
 const ActivityImg = styled.img`
   border-top-left-radius: ${({ theme }) => theme.$borderRadius};
