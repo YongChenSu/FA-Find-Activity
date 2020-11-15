@@ -11,8 +11,8 @@ const Routes = () => {
     <Suspense fallback={<div></div>}>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/find-activity" component={FindActivity} />
-        <Route exact path="/activity" component={Activity} />
+        <Route path="/find-activity" component={FindActivity} />
+        <Route path="/activity" component={Activity} />
         <Route path="/new-activity" component={NewActivity} />
         <Route path="/login-page" component={LoginPage} />
       </Switch>
