@@ -1,3 +1,5 @@
+import { getAuthToken } from "./utils/utils";
+
 const AUTHORIZATION_KEY = "CWB-15DFF2FC-FFFB-49E9-BF7F-EBB9164F4B47";
 const CURRENT_WEATHER_BASE_URL =
   "https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization";
@@ -119,4 +121,36 @@ export const fetchVillageFoodData = () => {
     .then((data) => {
       return data;
     });
+};
+
+// getPost, login, getMe
+
+const LIDEMY_BASE_URL = "https://student-json-api.lidemy.me";
+
+export const getPosts = () => {
+  return fetch(
+    `${LIDEMY_BASE_URL}/posts?_sort=createdAt&_order=desc`
+  ).then((response) => response.json());
+};
+
+export const login = (username, password) => {
+  return fetch(`${LIDEMY_BASE_URL}/login`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+  }).then((res) => res.json());
+};
+
+export const getMe = () => {
+  const token = getAuthToken();
+  return fetch(`${LIDEMY_BASE_URL}/me`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
 };

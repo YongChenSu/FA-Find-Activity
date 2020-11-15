@@ -164,7 +164,7 @@
 
 // export default FindActivity
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import styled from "@emotion/styled";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
@@ -181,6 +181,7 @@ import {
   fetchLectureData,
   fetchVillageFoodData,
 } from "../../../src/WebAPI";
+import { AuthContext } from "../../contexts";
 
 const FindActivityContainer = styled.div`
   padding-top: 4rem;
@@ -259,41 +260,7 @@ const MoreActButton = styled(Button)`
 
 const FindActivity = () => {
   const [loading, setLoading] = useState(true);
-  const [activityData, setActivityData] = useState({});
-  const fetchActivityData = useCallback(async () => {
-    setActivityData((prevState) => ({
-      ...prevState,
-    }));
-
-    const [
-      exhibitionData,
-      parentChildActivityData,
-      moviesData,
-      musicPerformanceData,
-      lectureData,
-      // villageFoodData,
-    ] = await Promise.all([
-      fetchExhibitionData(),
-      fetchParentChildActivityData(),
-      fetchMoviesData(),
-      fetchMusicPerformanceData(),
-      fetchLectureData(),
-      // fetchVillageFoodData(),
-    ]);
-
-    setActivityData((prevState) => ({
-      ...exhibitionData,
-      ...parentChildActivityData,
-      ...moviesData,
-      ...musicPerformanceData,
-      ...lectureData,
-      // ...villageFoodData,
-    }));
-  }, []);
-
-  useEffect(() => {
-    fetchActivityData();
-  }, [fetchActivityData]);
+  const { activityData, setActivityData } = useContext(AuthContext);
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 2500);

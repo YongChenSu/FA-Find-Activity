@@ -1,18 +1,22 @@
-import React, { Component } from "react";
+import React, { Suspense, lazy } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "../pages/Home";
-import FindActivity from "../pages/FindActivity";
-import Activity from "../pages/Activity";
-import NewActivity from "../pages/NewActivity";
+const Home = lazy(() => import("../pages/Home"));
+const FindActivity = lazy(() => import("../pages/FindActivity"));
+const Activity = lazy(() => import("../pages/Activity"));
+const NewActivity = lazy(() => import("../pages/NewActivity"));
+const LoginPage = lazy(() => import("../pages/LoginPage"));
 
 const Routes = () => {
   return (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/find-activity" component={FindActivity} />
-      <Route exact path="/activity" component={Activity} />
-      <Route path="/new-activity" component={NewActivity} />
-    </Switch>
+    <Suspense fallback={<div></div>}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/find-activity" component={FindActivity} />
+        <Route exact path="/activity" component={Activity} />
+        <Route path="/new-activity" component={NewActivity} />
+        <Route path="/login-page" component={LoginPage} />
+      </Switch>
+    </Suspense>
   );
 };
 
