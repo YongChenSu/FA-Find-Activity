@@ -259,12 +259,12 @@ const MoreActButton = styled(Button)`
 `;
 
 const FindActivity = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { activityData, setActivityData } = useContext(AuthContext);
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 2500);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => setLoading(false), 2500);
+  // }, []);
 
   return (
     <>
@@ -308,7 +308,7 @@ const FindActivity = () => {
                   imageUrl={data.imageUrl}
                   title={data.title}
                   time={data.endDate}
-                  locationName={data.showInfo[0].locationName}
+                  // locationName={data.showInfo[0].locationName}
                   description={data.descriptionFilterHtml}
                 />
               ))}

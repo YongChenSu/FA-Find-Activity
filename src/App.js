@@ -12,7 +12,6 @@ import {
   fetchMoviesData,
   fetchMusicPerformanceData,
   fetchLectureData,
-  fetchVillageFoodData,
   getMe,
 } from "../src/WebAPI";
 
@@ -25,23 +24,20 @@ const App = () => {
       moviesData,
       musicPerformanceData,
       lectureData,
-      // villageFoodData,
     ] = await Promise.all([
       fetchExhibitionData(),
       fetchParentChildActivityData(),
       fetchMoviesData(),
       fetchMusicPerformanceData(),
       fetchLectureData(),
-      // fetchVillageFoodData(),
     ]);
 
     setActivityData((prevState) => ({
-      ...exhibitionData,
-      ...parentChildActivityData,
-      ...moviesData,
-      ...musicPerformanceData,
-      ...lectureData,
-      // ...villageFoodData,
+      exhibitionData: exhibitionData,
+      parentChildActivityData: parentChildActivityData,
+      moviesData: moviesData,
+      musicPerformanceData: musicPerformanceData,
+      lectureData: lectureData,
     }));
   }, []);
 

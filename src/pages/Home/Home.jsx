@@ -58,6 +58,8 @@ const MoreActivityButton = styled(Button)`
 
 const Home = () => {
   const { activityData, setActivityData } = useContext(AuthContext);
+  const newData = Object.values(activityData)[0];
+  console.log(newData);
   return (
     <>
       <Header />
@@ -65,17 +67,15 @@ const Home = () => {
         <Carousel />
         <Category />
         <ActivityContainer>
-          {Object.values(activityData)
-            .filter((data) => data.imageUrl !== "")
-            .map((data) => (
-              <ActivityCard
-                imageUrl={data.imageUrl}
-                title={data.title}
-                time={data.endDate}
-                locationName={data.showInfo[0].locationName}
-                description={data.descriptionFilterHtml}
-              />
-            ))}
+          {Object.values(activityData).map((data) => (
+            <ActivityCard
+              imageUrl={data.imageUrl}
+              title={data.title}
+              time={data.endDate}
+              // locationName={data.showInfo[0].locationName}
+              description={data.descriptionFilterHtml}
+            />
+          ))}
         </ActivityContainer>
         <MoreActivityButtonContainer>
           <MoreActivityButton>
