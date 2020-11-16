@@ -19,10 +19,6 @@ import {
 const App = () => {
   const [activityData, setActivityData] = useState({});
   const fetchActivityData = useCallback(async () => {
-    setActivityData((prevState) => ({
-      ...prevState,
-    }));
-
     const [
       exhibitionData,
       parentChildActivityData,

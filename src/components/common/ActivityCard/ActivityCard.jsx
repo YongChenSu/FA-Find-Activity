@@ -18,16 +18,16 @@ const ActivityCardContainer = styled(Link)`
   font-family: ${({ theme }) => theme.$fontFamily};
 
   &:hover {
-    transition-duration: 0.3s;
+    transition-duration: 0.7s;
     transform: translate(-5px, -5px);
     box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.3);
 
     button {
+      transition-duration: 0.7s;
       transform: scale(1.1);
       color: ${({ theme }) => theme.$colorWhite};
-      box-shadow: inset -3.5rem 0 0 0 ${({ theme }) => theme.$colorRed},
-        inset 3.5rem 0 0 0 ${({ theme }) => theme.$colorRed};
       border-color: ${({ theme }) => theme.$colorRed};
+      background-color: ${({ theme }) => theme.$colorRed};
       border: 0;
     }
   }
@@ -63,6 +63,7 @@ const ActivityTitle = styled.div`
   -webkit-box-orient: vertical;
   height: 3.25rem;
   font-size: 1.25rem;
+  line-height: 1.25rem;
   margin: 0.25rem 0;
 `;
 
