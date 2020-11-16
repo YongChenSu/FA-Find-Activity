@@ -37,7 +37,7 @@ const Header = (props) => {
               ""
             )}
             {isLogin ? (
-              <Link to="/profile" className="proflie">
+              <Link to="/login-page" className="proflie">
                 <FaUserCircle />
               </Link>
             ) : (
