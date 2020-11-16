@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "@emotion/styled";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
@@ -6,6 +6,7 @@ import Category from "../../components/common/Category";
 import ActivityCard from "../../components/common/ActivityCard";
 import Footer from "../../components/common/Footer";
 import { FaAngleDoubleRight } from "react-icons/fa";
+import { AuthContext } from "../../contexts";
 
 const HomeContainer = styled.div`
   font-family: ${({ theme }) => theme.$fontFamily};
@@ -55,7 +56,8 @@ const MoreActivityButton = styled(Button)`
   }
 `;
 
-const Home = ({}) => {
+const Home = () => {
+  const { activityData, setActivityData } = useContext(AuthContext);
   return (
     <>
       <Header />
@@ -63,15 +65,17 @@ const Home = ({}) => {
         <Carousel />
         <Category />
         <ActivityContainer>
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
+          {Object.values(activityData)
+            .filter((data) => data.imageUrl !== "")
+            .map((data) => (
+              <ActivityCard
+                imageUrl={data.imageUrl}
+                title={data.title}
+                time={data.endDate}
+                locationName={data.showInfo[0].locationName}
+                description={data.descriptionFilterHtml}
+              />
+            ))}
         </ActivityContainer>
         <MoreActivityButtonContainer>
           <MoreActivityButton>

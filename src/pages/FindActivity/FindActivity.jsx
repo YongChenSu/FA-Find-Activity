@@ -164,7 +164,7 @@
 
 // export default FindActivity
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import styled from "@emotion/styled";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
@@ -173,6 +173,15 @@ import ActivityCard from "../../components/common/ActivityCard";
 import Footer from "../../components/common/Footer";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import LoadingImg from "../../components/common/LoadingImg";
+import {
+  fetchExhibitionData,
+  fetchParentChildActivityData,
+  fetchMoviesData,
+  fetchMusicPerformanceData,
+  fetchLectureData,
+  fetchVillageFoodData,
+} from "../../../src/WebAPI";
+import { AuthContext } from "../../contexts";
 
 const FindActivityContainer = styled.div`
   padding-top: 4rem;
@@ -249,51 +258,14 @@ const MoreActButton = styled(Button)`
   }
 `;
 
-const EXHIBITION_BASE_URL = `https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6`;
-
-const fetchExhibitionData = () => {
-  return fetch(`${EXHIBITION_BASE_URL}`)
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    });
-};
-
 const FindActivity = () => {
   const [loading, setLoading] = useState(true);
-
-  // const [exhibitionData, setExhibitionData] = useState([])
-  const [activityData, setActivityData] = useState({});
-
-  const fetchActivityData = useCallback(async () => {
-    setActivityData((prevState) => ({
-      ...prevState,
-    }));
-
-    const [exhibitionData] = await Promise.all([fetchExhibitionData()]);
-
-    setActivityData((prevState) => ({
-      ...exhibitionData,
-    }));
-  }, []);
-
-  // const fetchExhibitionData = () => {
-  //   fetch(`${EXHIBITION_BASE_URL}`)
-  //     .then((response) => response.json())
-  //     .then((data) => setExhibitionData(data))
-  // }
-
-  // useEffect(fetchExhibitionData, [])
+  const { activityData, setActivityData } = useContext(AuthContext);
 
   useEffect(() => {
-    fetchActivityData();
-  }, [fetchActivityData]);
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => setLoading(false), 2500);
   }, []);
 
-  console.log(JSON.parse(JSON.stringify(activityData)));
   return (
     <>
       <Header />
