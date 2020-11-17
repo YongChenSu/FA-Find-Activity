@@ -73,9 +73,8 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import LogoImg from "../../assets/img/FA_logo.png";
-import SignInPanel from "./SignInPanel";
-import SignUpPanel from "./SignUpPanel";
-import { AuthContext } from "../../../src/contexts";
+import SignInPanel from "../../components/SignInPanel";
+import SignUpPanel from "../../components/SignUpPanel";
 
 const LoginPageContainer = styled.div`
   background-color: ${({ theme }) => theme.$colorWhite};
@@ -156,11 +155,12 @@ const LoginPage = () => {
             <Slogan>最新、最好玩的活動，都在 FA 找活動</Slogan>
           </Info>
         </LogoContainer>
-        {isShowSignInPanel ? (
+        <SignInPanel />
+        {/* {isShowSignInPanel ? (
           <SignInPanel handleToggleSignInUp={handleToggleSignInUp} />
         ) : (
           <SignUpPanel handleToggleSignInUp={handleToggleSignInUp} />
-        )}
+        )} */}
       </LoginPageWrapper>
     </LoginPageContainer>
   );

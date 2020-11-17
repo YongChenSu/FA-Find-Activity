@@ -58,25 +58,26 @@ const MoreActivityButton = styled(Button)`
 
 const Home = () => {
   const { activityData, setActivityData } = useContext(AuthContext);
-  const newData = Object.values(activityData)[0];
-  console.log(newData);
+  const ActivityCardLists = activityData
+    .filter((data) => data.imageUrl !== "")
+    .map((data) => (
+      <ActivityCard
+        imageUrl={data.imageUrl}
+        title={data.title}
+        time={data.endDate}
+        locationName={data.showInfo[0].locationName}
+        description={data.descriptionFilterHtml}
+      />
+    ))
+    .slice(1, 10);
+
   return (
     <>
       <Header />
       <HomeContainer>
         <Carousel />
         <Category />
-        <ActivityContainer>
-          {Object.values(activityData).map((data) => (
-            <ActivityCard
-              imageUrl={data.imageUrl}
-              title={data.title}
-              time={data.endDate}
-              // locationName={data.showInfo[0].locationName}
-              description={data.descriptionFilterHtml}
-            />
-          ))}
-        </ActivityContainer>
+        <ActivityContainer>{<>{ActivityCardLists}</>}</ActivityContainer>
         <MoreActivityButtonContainer>
           <MoreActivityButton>
             尋找更多活動

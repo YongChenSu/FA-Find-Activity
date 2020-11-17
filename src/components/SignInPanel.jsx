@@ -4,7 +4,7 @@ import { MdEmail } from "react-icons/md";
 import { TiKey, TiUserAdd } from "react-icons/ti";
 import { FaSignInAlt, FaUserCircle } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { AuthContext } from "../../contexts";
+import { AuthContext } from "../contexts";
 
 const FormContainer = styled.div`
   display: flex;
