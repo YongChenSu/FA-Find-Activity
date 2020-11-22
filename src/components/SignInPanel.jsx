@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, createContext } from "react";
 import styled from "@emotion/styled";
 import { MdEmail } from "react-icons/md";
 import { TiKey, TiUserAdd } from "react-icons/ti";
@@ -21,6 +21,14 @@ const Form = styled.form`
   border-radius: ${({ theme }) => theme.$borderRadius};
   box-shadow: 3px 5px 8px 3px rgba(0, 0, 0, 0.15);
   padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const InputWrapper = styled.div``;
+const ButtonWrapper = styled.div`
+  margin: 0 0 1rem 0;
 `;
 
 const InputContainer = styled.div`
@@ -92,7 +100,6 @@ const SignInButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 6rem 0 1rem 0;
   color: ${({ theme }) => theme.$colorWhite};
   width: 100%;
   height: 2.5rem;
@@ -102,6 +109,7 @@ const SignInButton = styled.button`
   border: 0;
   background-color: ${({ theme }) => theme.$colorRed};
   transition-duration: 0.3s;
+  margin: 0 0 1rem 0;
 
   &:hover {
     background-color: #d86d63;
@@ -131,35 +139,38 @@ const GoogleSignButton = styled(SignInButton)`
   }
 `;
 
-const SignInPanel = (handleToggleSignInUp) => {
-  console.log(handleToggleSignInUp);
+const SignInPanel = ({ handleToggleSignInUp }) => {
   return (
     <FormContainer>
-      {console.log(handleToggleSignInUp)}
       <Form>
-        <SignInSignUpContainer>
-          <SignInLink onClick={handleToggleSignInUp}>
-            <FaSignInAlt />
-            登入
-          </SignInLink>
-          <SignUpLink onClick={handleToggleSignInUp}>
-            <TiUserAdd />
-            註冊
-          </SignUpLink>
-        </SignInSignUpContainer>
-        <InputContainer>
-          <MdEmail />
-          <Input placeholder="信箱" />
-        </InputContainer>
-        <InputContainer>
-          <TiKey />
-          <Input placeholder="密碼" />
-        </InputContainer>
-        <SignInButton>登入</SignInButton>
-        <GoogleSignButton>
-          <FcGoogle />
-          GOOGLE 帳號快速登入
-        </GoogleSignButton>
+        <InputWrapper>
+          <SignInSignUpContainer>
+            <SignInLink>
+              <FaSignInAlt />
+              登入
+            </SignInLink>
+            <SignUpLink onClick={handleToggleSignInUp}>
+              <TiUserAdd />
+              註冊
+            </SignUpLink>
+          </SignInSignUpContainer>
+
+          <InputContainer>
+            <MdEmail />
+            <Input placeholder="信箱" />
+          </InputContainer>
+          <InputContainer>
+            <TiKey />
+            <Input placeholder="密碼" />
+          </InputContainer>
+        </InputWrapper>
+        <ButtonWrapper>
+          <SignInButton>登入</SignInButton>
+          <GoogleSignButton>
+            <FcGoogle />
+            GOOGLE 帳號快速登入
+          </GoogleSignButton>
+        </ButtonWrapper>
       </Form>
     </FormContainer>
   );
