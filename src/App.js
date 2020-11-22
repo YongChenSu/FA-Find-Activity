@@ -32,7 +32,7 @@ const App = () => {
       fetchExhibitionData(),
     ]);
 
-    setActivityData((prevState) => [
+    setActivityData([
       ...moviesData,
       ...musicPerformanceData,
       ...parentChildActivityData,
