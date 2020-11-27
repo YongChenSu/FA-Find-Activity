@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/NewActivity/NewActivity.jsx"],"names":["NewActivity"],"mappings":"4KAUeA,EARK,WAClB,OACE,oCACE","file":"static/js/11.945b2471.chunk.js","sourcesContent":["import React from 'react'\r\n\r\nconst NewActivity = () => {\r\n  return (\r\n    <>\r\n      <div>NewActivity</div>\r\n    </>\r\n  )\r\n}\r\n\r\nexport default NewActivity"],"sourceRoot":""}
