@@ -158,7 +158,6 @@ export const register = (nickname, username, password) => {
       password,
     }),
   }).then((res) => res.json());
-  // .then((data) => console.log(data));
 };
 
 export const getMe = () => {

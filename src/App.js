@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Routes from "./routes";
 import { HashRouter as Router } from "react-router-dom";
 import "./styles/main.sass";
