@@ -12,37 +12,33 @@ import {
   fetchMoviesData,
   fetchMusicPerformanceData,
   fetchLectureData,
-  fetchVillageFoodData,
   getMe,
 } from "../src/WebAPI";
 
 const App = () => {
-  const [activityData, setActivityData] = useState({});
+  const [activityData, setActivityData] = useState([]);
   const fetchActivityData = useCallback(async () => {
     const [
-      exhibitionData,
-      parentChildActivityData,
       moviesData,
       musicPerformanceData,
+      parentChildActivityData,
       lectureData,
-      // villageFoodData,
+      exhibitionData,
     ] = await Promise.all([
-      fetchExhibitionData(),
-      fetchParentChildActivityData(),
       fetchMoviesData(),
       fetchMusicPerformanceData(),
+      fetchParentChildActivityData(),
       fetchLectureData(),
-      // fetchVillageFoodData(),
+      fetchExhibitionData(),
     ]);
 
-    setActivityData((prevState) => ({
-      ...exhibitionData,
-      ...parentChildActivityData,
+    setActivityData([
       ...moviesData,
       ...musicPerformanceData,
+      ...parentChildActivityData,
       ...lectureData,
-      // ...villageFoodData,
-    }));
+      ...exhibitionData,
+    ]);
   }, []);
 
   useEffect(() => {

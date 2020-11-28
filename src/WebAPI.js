@@ -146,6 +146,21 @@ export const login = (username, password) => {
   }).then((res) => res.json());
 };
 
+export const register = (nickname, username, password) => {
+  return fetch(`${LIDEMY_BASE_URL}/register`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      nickname,
+      username,
+      password,
+    }),
+  }).then((res) => res.json());
+  // .then((data) => console.log(data));
+};
+
 export const getMe = () => {
   const token = getAuthToken();
   return fetch(`${LIDEMY_BASE_URL}/me`, {

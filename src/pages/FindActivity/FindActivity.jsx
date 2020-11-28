@@ -259,12 +259,20 @@ const MoreActButton = styled(Button)`
 `;
 
 const FindActivity = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { activityData, setActivityData } = useContext(AuthContext);
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 2500);
-  }, []);
+  const ActivityCardLists = activityData
+    .filter((data) => data.imageUrl !== "")
+    .map((data) => (
+      <ActivityCard
+        imageUrl={data.imageUrl}
+        title={data.title}
+        time={data.endDate}
+        locationName={data.showInfo[0].locationName}
+        description={data.descriptionFilterHtml}
+      />
+    ))
+    .slice(1, 10);
 
   return (
     <>
@@ -300,19 +308,7 @@ const FindActivity = () => {
               <Option value="4">2000 ↑</Option>
             </Select>
           </SelectContainer>
-          <ActivityContainer>
-            {Object.values(activityData)
-              .filter((data) => data.imageUrl !== "")
-              .map((data) => (
-                <ActivityCard
-                  imageUrl={data.imageUrl}
-                  title={data.title}
-                  time={data.endDate}
-                  locationName={data.showInfo[0].locationName}
-                  description={data.descriptionFilterHtml}
-                />
-              ))}
-          </ActivityContainer>
+          <ActivityContainer>{<>{ActivityCardLists}</>}</ActivityContainer>
           <MoreActButtonContainer>
             <MoreActButton>
               尋找更多活動
