@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   FaUserFriends,
@@ -64,41 +64,45 @@ const CategoryItemGreen = styled(CategoryItemRed)`
   background-color: ${({ theme }) => theme.$colorGreen};
 `;
 
-const Category = () => {
-  const handleChangeLecture = () => {};
+const musicCategoryNum = 1;
+const parentChildCategoryNum = 4;
+const exhibitionCategoryNum = 6;
+const lectureCategoryNum = 7;
+const movieCategoryNum = 8;
 
+const Category = ({ handleChangeCategory }) => {
   return (
     <CategoryContainer>
-      <Link to="find-activity">
-        <CategoryItemRed onClick={handleChangeLecture}>
-          <FaBook />
-          <div>講座</div>
-        </CategoryItemRed>
-      </Link>
-      <Link to="find-activity">
-        <CategoryItemGreen>
-          <FaMusic />
-          <div>音樂</div>
-        </CategoryItemGreen>
-      </Link>
-      <Link to="find-activity">
-        <CategoryItemRed>
-          <FaChild />
-          <div>親子</div>
-        </CategoryItemRed>
-      </Link>
-      <Link to="find-activity">
-        <CategoryItemGreen>
-          <FaDoorOpen />
-          <div>展覽</div>
-        </CategoryItemGreen>
-      </Link>
-      <Link to="find-activity">
-        <CategoryItemRed>
-          <BiCameraMovie />
-          <div>電影</div>
-        </CategoryItemRed>
-      </Link>
+      {/* <Link to="find-activity"> */}
+      <CategoryItemRed>
+        <FaBook />
+        <div>講座</div>
+      </CategoryItemRed>
+      {/* </Link> */}
+      {/* <Link to="find-activity"> */}
+      <CategoryItemGreen>
+        <FaMusic />
+        <div>音樂</div>
+      </CategoryItemGreen>
+      {/* </Link> */}
+      {/* <Link to="find-activity"> */}
+      <CategoryItemRed>
+        <FaChild />
+        <div>親子</div>
+      </CategoryItemRed>
+      {/* </Link> */}
+      {/* <Link to="find-activity"> */}
+      <CategoryItemGreen>
+        <FaDoorOpen />
+        <div>展覽</div>
+      </CategoryItemGreen>
+      {/* </Link> */}
+      {/* <Link to="find-activity"> */}
+      <CategoryItemRed>
+        <BiCameraMovie />
+        <div>電影</div>
+      </CategoryItemRed>
+      {/* </Link> */}
     </CategoryContainer>
   );
 };

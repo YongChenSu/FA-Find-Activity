@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "@emotion/styled";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
@@ -55,11 +55,35 @@ const MoreActivityButton = styled(Button)`
     margin: 0 0.5rem;
   }
 `;
+// 音樂 1 親子 4 展覽 6 講座 7 電影 8
+// const handleChangeLectureData = () => {};
+// const handleChangeMusicData = () => {};
+// const handleChangeParentChildData = () => {};
+// const handleChangeExhibitionData = () => {};
+// const handleChangeMovieData = () => {};
 
 const Home = () => {
   const { activityData, setActivityData } = useContext(AuthContext);
+  const [dataNum, setDataNum] = useState(10);
+  // const [categoryNum, setCategoryNum] = useState(1);
+
+  // const handleChangeCategory = () => {
+  //   setCategoryNum(categoryNum);
+  // };
+
+  const handleShowMoreActivity = () => {
+    setDataNum((dataNum) => dataNum + 9);
+  };
+
+  useEffect(() => {
+    return () => {
+      setDataNum(0);
+    };
+  }, []);
+
   const ActivityCardLists = activityData
     .filter((data) => data.imageUrl !== "")
+    // .filter((data) => Number(data.category) === categoryNum)
     .map((data) => (
       <ActivityCard
         imageUrl={data.imageUrl}
@@ -69,17 +93,17 @@ const Home = () => {
         description={data.descriptionFilterHtml}
       />
     ))
-    .slice(1, 10);
-
+    .slice(1, dataNum);
+  console.log(activityData);
   return (
     <>
       <Header />
       <HomeContainer>
         <Carousel />
         <Category />
-        <ActivityContainer>{<>{ActivityCardLists}</>}</ActivityContainer>
+        <ActivityContainer>{ActivityCardLists}</ActivityContainer>
         <MoreActivityButtonContainer>
-          <MoreActivityButton>
+          <MoreActivityButton onClick={handleShowMoreActivity}>
             尋找更多活動
             <FaAngleDoubleRight />
           </MoreActivityButton>
