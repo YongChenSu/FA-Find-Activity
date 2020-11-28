@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled from "@emotion/styled";
+import { useHistory } from "react-router-dom";
+import { AuthContext } from "../contexts";
+import { setAuthToken } from "../utils/utils";
+import { register, getMe } from "../WebAPI";
+
 import { MdEmail } from "react-icons/md";
 import { TiKey, TiUserAdd } from "react-icons/ti";
 import { FaSignInAlt, FaUserCircle } from "react-icons/fa";
@@ -139,10 +144,40 @@ const GoogleSignButton = styled(SignInButton)`
   }
 `;
 
+const ErrMessage = styled.div`
+  color: red;
+`;
+
 const SignUpPanel = ({ handleToggleSignInUp }) => {
+  const { setUser } = useContext(AuthContext);
+  const [nickname, setNickname] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState();
+  const history = useHistory();
+  const handleSubmit = (e) => {
+    setErrMessage(null);
+    register(nickname, username, password).then((data) => {
+      console.log(data);
+      if (data.ok === 0) {
+        return setErrMessage(data.message);
+      }
+      setAuthToken(data.token);
+
+      getMe().then((response) => {
+        if (response.ok !== 1) {
+          setAuthToken(null);
+          return setErrMessage(response.toString());
+        }
+        setUser(response.data);
+        history.push("/");
+      });
+    });
+  };
+
   return (
     <FormContainer>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <InputWrapper>
           <SignInSignUpContainer>
             <SignInLink onClick={handleToggleSignInUp}>
@@ -156,19 +191,33 @@ const SignUpPanel = ({ handleToggleSignInUp }) => {
           </SignInSignUpContainer>
           <InputContainer>
             <FaUserCircle />
-            <Input placeholder="暱稱" />
+            <Input
+              placeholder="暱稱"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+            />
           </InputContainer>
           <InputContainer>
             <MdEmail />
-            <Input placeholder="信箱" />
+            <Input
+              placeholder="使用者"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </InputContainer>
           <InputContainer>
             <TiKey />
-            <Input placeholder="密碼" />
+            <Input
+              placeholder="密碼"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </InputContainer>
         </InputWrapper>
         <ButtonWrapper>
           <SignInButton>登入</SignInButton>
+          {errMessage && <ErrMessage>{errMessage}</ErrMessage>}
           <GoogleSignButton>
             <FcGoogle />
             GOOGLE 帳號快速登入
