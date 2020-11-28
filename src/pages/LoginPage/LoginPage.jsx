@@ -1,3 +1,4 @@
+// 登入
 // import { useState, useContext } from "react";
 // import styled from "styled-components";
 // import { useHistory } from "react-router-dom";
@@ -8,19 +9,6 @@
 
 // const ErrMessage = styled.div`
 //   color: red;
-// `;
-
-// const Form = styled.form`
-//   width: 200px;
-//   height: 300px;
-//   background-color: #f8f8f8;
-//   border-radius: ${({ theme }) => theme.$borderRadius};
-//   border: 1px solid black;
-// `;
-
-// const Input = styled.div`
-//   width: 100%;
-//   height: 20px;
 // `;
 
 // const LoginPage = () => {
@@ -49,14 +37,14 @@
 //   };
 
 //   return (
-//     <Form onSubmit={handleSubmit}>
+//     <form onSubmit={handleSubmit}>
 //       <div>
 //         username:{" "}
-//         <Input value={username} onChange={(e) => setUsername(e.target.value)} />
+//         <input value={username} onChange={(e) => setUsername(e.target.value)} />
 //       </div>
 //       <div>
 //         password:{" "}
-//         <Input
+//         <input
 //           type="password"
 //           value={password}
 //           onChange={(e) => setPassword(e.target.value)}
@@ -64,18 +52,17 @@
 //       </div>
 //       <button>登入</button>
 //       {errMessage && <ErrMessage>{errMessage}</ErrMessage>}
-//     </Form>
+//     </form>
 //   );
 // };
 
 // export default LoginPage;
 
-import React, { useState } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import styled from "@emotion/styled";
 import LogoImg from "../../assets/img/FA_logo.png";
-import SignInPanel from "./SignInPanel";
-import SignUpPanel from "./SignUpPanel";
-import { AuthContext } from "../../../src/contexts";
+import SignInPanel from "../../components/SignInPanel";
+import SignUpPanel from "../../components/SignUpPanel";
 
 const LoginPageContainer = styled.div`
   background-color: ${({ theme }) => theme.$colorWhite};
@@ -167,3 +154,61 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+// 註冊
+// import { useState, useContext } from "react";
+// import styled from "styled-components";
+// import { useHistory } from "react-router-dom";
+// import { register, login, getMe } from "../../WebAPI";
+// import { setAuthToken } from "../../utils/utils";
+// import { AuthContext } from "../../contexts";
+// import React from "react";
+
+// const ErrMessage = styled.div`
+//   color: red;
+// `;
+
+// const LoginPage = () => {
+//   const { setUser } = useContext(AuthContext);
+//   const [nickname, setNickname] = useState("");
+//   const [username, setUsername] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [errMessage, setErrMessage] = useState();
+//   const history = useHistory();
+//   const handleSubmit = (e) => {
+//     setErrMessage(null);
+//     register(nickname, username, password).then((data) => {
+//       console.log(data);
+//       if (data.ok === 0) {
+//         return setErrMessage(data.message);
+//       }
+//       setAuthToken(data.token);
+//       history.push("/");
+//     });
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit}>
+//       <div>
+//         nickname:{" "}
+//         <input value={nickname} onChange={(e) => setNickname(e.target.value)} />
+//       </div>
+//       <div>
+//         username:{" "}
+//         <input value={username} onChange={(e) => setUsername(e.target.value)} />
+//       </div>
+//       <div>
+//         password:{" "}
+//         <input
+//           type="password"
+//           value={password}
+//           onChange={(e) => setPassword(e.target.value)}
+//         />
+//       </div>
+//       <button>登入</button>
+//       {errMessage && <ErrMessage>{errMessage}</ErrMessage>}
+//     </form>
+//   );
+// };
+
+// export default LoginPage;

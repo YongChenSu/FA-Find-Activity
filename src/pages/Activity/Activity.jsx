@@ -78,14 +78,14 @@ const Activity = () => {
   const [weatherData, setWeatherData] = useState({
     observationTime: new Date(),
     locationName: "",
-    temperature: 0,
-    windSpeed: 0,
     description: "",
-    weatherCode: 0,
+    windSpeed: 0,
+    temperature: 0,
     rainPossibility: 0,
     comfortability: "",
     minTemperature: "",
     maxTemperature: "",
+    weatherCode: 0,
     isLoading: true,
   });
   const moment = useMemo(() => getMoment(LOCATION_NAME_FORECAST), []);

@@ -126,11 +126,11 @@ const WeatherCard = ({ weatherData, moment, fetchData }) => {
     windSpeed,
     temperature,
     rainPossibility,
-    isLoading,
     comfortability,
     minTemperature,
     maxTemperature,
     weatherCode,
+    isLoading,
   } = weatherData;
 
   return (
