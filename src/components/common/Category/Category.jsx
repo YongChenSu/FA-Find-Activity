@@ -35,6 +35,7 @@ const CategoryItemRed = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   &:focus {
     box-shadow: 0 0 1px 2.5px ${({ theme }) => theme.$colorGreen};
@@ -74,31 +75,43 @@ const Category = ({ handleChangeCategory }) => {
   return (
     <CategoryContainer>
       {/* <Link to="find-activity"> */}
-      <CategoryItemRed>
+      <CategoryItemRed
+        onClick={useCallback(() => handleChangeCategory(lectureCategoryNum))}
+      >
         <FaBook />
         <div>講座</div>
       </CategoryItemRed>
       {/* </Link> */}
       {/* <Link to="find-activity"> */}
-      <CategoryItemGreen>
+      <CategoryItemGreen
+        onClick={useCallback(() => handleChangeCategory(musicCategoryNum))}
+      >
         <FaMusic />
         <div>音樂</div>
       </CategoryItemGreen>
       {/* </Link> */}
       {/* <Link to="find-activity"> */}
-      <CategoryItemRed>
+      <CategoryItemRed
+        onClick={useCallback(() =>
+          handleChangeCategory(parentChildCategoryNum)
+        )}
+      >
         <FaChild />
         <div>親子</div>
       </CategoryItemRed>
       {/* </Link> */}
       {/* <Link to="find-activity"> */}
-      <CategoryItemGreen>
+      <CategoryItemGreen
+        onClick={useCallback(() => handleChangeCategory(exhibitionCategoryNum))}
+      >
         <FaDoorOpen />
         <div>展覽</div>
       </CategoryItemGreen>
       {/* </Link> */}
       {/* <Link to="find-activity"> */}
-      <CategoryItemRed>
+      <CategoryItemRed
+        onClick={useCallback(() => handleChangeCategory(movieCategoryNum))}
+      >
         <BiCameraMovie />
         <div>電影</div>
       </CategoryItemRed>
