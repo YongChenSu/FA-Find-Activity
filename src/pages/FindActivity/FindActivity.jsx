@@ -259,10 +259,31 @@ const MoreActButton = styled(Button)`
 `;
 
 const FindActivity = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+  }, []);
+
   const { activityData, setActivityData } = useContext(AuthContext);
+  const [dataNum, setDataNum] = useState(0);
+  const [categoryNum, setCategoryNum] = useState(1);
+
+  const handleChangeCategory = (categoryNum) => {
+    setCategoryNum(categoryNum);
+    setDataNum(9);
+  };
+
+  const handleShowMoreActivity = () => {
+    setDataNum((dataNum) => dataNum + 9);
+  };
+
+  useEffect(() => {
+    handleShowMoreActivity();
+  }, []);
+
   const ActivityCardLists = activityData
     .filter((data) => data.imageUrl !== "")
+    .filter((data) => Number(data.category) === categoryNum)
     .map((data) => (
       <ActivityCard
         imageUrl={data.imageUrl}
@@ -272,14 +293,17 @@ const FindActivity = () => {
         description={data.descriptionFilterHtml}
       />
     ))
-    .slice(1, 10);
+    .slice(1, dataNum + 1);
+  console.log(activityData);
+  console.log(categoryNum);
+  console.log(dataNum);
 
   return (
     <>
       <Header />
       {loading === false ? (
         <FindActivityContainer>
-          <Category />
+          <Category handleChangeCategory={handleChangeCategory} />
           <SelectContainer>
             <Select>
               <Option value="" hidden>
@@ -308,9 +332,9 @@ const FindActivity = () => {
               <Option value="4">2000 ↑</Option>
             </Select>
           </SelectContainer>
-          <ActivityContainer>{<>{ActivityCardLists}</>}</ActivityContainer>
+          <ActivityContainer>{ActivityCardLists}</ActivityContainer>
           <MoreActButtonContainer>
-            <MoreActButton>
+            <MoreActButton onClick={handleShowMoreActivity}>
               尋找更多活動
               <FaAngleDoubleRight />
             </MoreActButton>
