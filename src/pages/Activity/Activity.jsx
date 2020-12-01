@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useContext } from "react";
+import { useParams } from "react-router";
 import styled from "@emotion/styled";
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
@@ -6,8 +7,8 @@ import { getMoment } from "../../utils/helpers";
 import { ThemeProvider } from "emotion-theming";
 import theme from "../../styles/base/variable";
 import WeatherCard from "../../components/common/WeatherCard";
-// import { fetchCurrentWeatherData, fetchForecastData } from "../../WebAPI";
 import useWeatherAPI from "../../hooks/useWeatherAPI";
+import { AuthContext } from "../../contexts";
 
 const ActivityContainer = styled.div`
   font-family: ${({ theme }) => theme.$fontFamily};
@@ -20,14 +21,19 @@ const ActivityWrapper = styled.div`
   margin: 0 auto;
 `;
 
-const Banner = styled.div`
+const Banner = styled.img`
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  position: relative;
+  margin: 0 auto;
   width: 100%;
-  height: 380px;
-  background-color: ${({ theme }) => theme.$colorYellow};
+  max-width: 800px;
+  max-height: 600px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 
 const ActInfoContainer = styled.div`
@@ -54,27 +60,21 @@ const WeatherContainer = styled.div`
   margin: 1rem 0 2rem 0;
 `;
 
-const title = `年輪說`;
-const tag = "美食";
-const time = "2020/11/01";
-const location = "臺北市松山區";
-const introduction = `一份滷味豆皮，兩包鹹水雞，三串炭烤玉米，四是芒果雪花冰，點了車輪餅，奶油加芋泥，
-  飽到脹氣，再繼續，四十花生麻吉，百元不找零，千層麵點下去，萬巒豬腳放一起，吃這麼多東西
-，還瘦不拉機，真是個 bad lady`;
-
-const actInfo = {
-  title,
-  tag,
-  time,
-  location,
-  introduction,
-};
-
 const AUTHORIZATION_KEY = "CWB-15DFF2FC-FFFB-49E9-BF7F-EBB9164F4B47";
 const LOCATION_NAME = "臺北";
 const LOCATION_NAME_FORECAST = "臺北市";
 
+let currentPageActivityData = {
+  imageUrl: "",
+  title: "",
+  category: "",
+  time: "",
+  location: "",
+  descriptionFilterHtml: "",
+};
+
 const Activity = () => {
+  const { modifiedData } = useContext(AuthContext);
   const [weatherData, fetchData] = useWeatherAPI({
     locationName: LOCATION_NAME,
     cityName: LOCATION_NAME_FORECAST,
@@ -82,69 +82,50 @@ const Activity = () => {
   });
   const [currentTheme, setCurrentTheme] = useState("main");
 
-  // const [weatherData, setWeatherData] = useState({
-  //   observationTime: new Date(),
-  //   locationName: "",
-  //   description: "",
-  //   windSpeed: 0,
-  //   temperature: 0,
-  //   rainPossibility: 0,
-  //   comfortability: "",
-  //   minTemperature: "",
-  //   maxTemperature: "",
-  //   weatherCode: 0,
-  //   isLoading: true,
-  // });
   const moment = useMemo(() => getMoment(LOCATION_NAME_FORECAST), []);
+
+  const { id } = useParams();
+
+  modifiedData.map((data) => {
+    if (data.id === Number(id)) {
+      console.log(data);
+      currentPageActivityData = {
+        imageUrl: data.imageUrl,
+        title: data.title,
+        tag: data.category,
+        time: data.showInfo[0].endTime,
+        location: data.showInfo[0].location,
+        introduction: data.descriptionFilterHtml,
+      };
+    }
+  });
+
   useEffect(() => {
     setCurrentTheme(moment === "day" ? "main" : "dark");
   }, [moment]);
-
-  // const fetchData = useCallback(async () => {
-  //   setWeatherData((prevState) => ({
-  //     ...prevState,
-  //     isLoading: true,
-  //   }));
-
-  //   const [currentWeather, weatherForecast] = await Promise.all([
-  //     fetchCurrentWeatherData(),
-  //     fetchForecastData(),
-  //   ]);
-
-  //   setWeatherData({
-  //     ...currentWeather,
-  //     ...weatherForecast,
-  //     isLoading: false,
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, [fetchData]);
-
   return (
     <>
       <Header />
       <ActivityContainer>
         <ActivityWrapper>
-          <Banner />
+          <Banner src={currentPageActivityData.imageUrl} />
           <ActInfoContainer>
-            <Title>{actInfo.title}</Title>
+            <Title>{currentPageActivityData.title}</Title>
             <ul>
               <li>分類</li>
-              <li>{actInfo.tag}</li>
+              <li>{currentPageActivityData.category}</li>
             </ul>
             <ul>
               <li>時間</li>
-              <li>{actInfo.time}</li>
+              <li>{currentPageActivityData.time}</li>
             </ul>
             <ul>
               <li>地點</li>
-              <li>{actInfo.location}</li>
+              <li>{currentPageActivityData.location}</li>
             </ul>
             <ul>
               <li>簡介</li>
-              <li>{actInfo.introduction}</li>
+              <li>{currentPageActivityData.introduction}</li>
             </ul>
           </ActInfoContainer>
           <ThemeProvider theme={theme[currentTheme]}>
