@@ -55,35 +55,28 @@ const MoreActivityButton = styled(Button)`
     margin: 0 0.5rem;
   }
 `;
-// 音樂 1 親子 4 展覽 6 講座 7 電影 8
-// const handleChangeLectureData = () => {};
-// const handleChangeMusicData = () => {};
-// const handleChangeParentChildData = () => {};
-// const handleChangeExhibitionData = () => {};
-// const handleChangeMovieData = () => {};
 
 const Home = () => {
   const { activityData, setActivityData } = useContext(AuthContext);
-  const [dataNum, setDataNum] = useState(10);
-  // const [categoryNum, setCategoryNum] = useState(1);
+  const [dataNum, setDataNum] = useState(0);
+  const [categoryNum, setCategoryNum] = useState(1);
 
-  // const handleChangeCategory = () => {
-  //   setCategoryNum(categoryNum);
-  // };
+  const handleChangeCategory = (categoryNum) => {
+    setCategoryNum(categoryNum);
+    setDataNum(9);
+  };
 
   const handleShowMoreActivity = () => {
     setDataNum((dataNum) => dataNum + 9);
   };
 
   useEffect(() => {
-    return () => {
-      setDataNum(0);
-    };
+    handleShowMoreActivity();
   }, []);
 
   const ActivityCardLists = activityData
     .filter((data) => data.imageUrl !== "")
-    // .filter((data) => Number(data.category) === categoryNum)
+    .filter((data) => Number(data.category) === categoryNum)
     .map((data) => (
       <ActivityCard
         imageUrl={data.imageUrl}
@@ -93,14 +86,16 @@ const Home = () => {
         description={data.descriptionFilterHtml}
       />
     ))
-    .slice(1, dataNum);
+    .slice(1, dataNum + 1);
   console.log(activityData);
+  console.log(categoryNum);
+  console.log(dataNum);
   return (
     <>
       <Header />
       <HomeContainer>
         <Carousel />
-        <Category />
+        <Category handleChangeCategory={handleChangeCategory} />
         <ActivityContainer>{ActivityCardLists}</ActivityContainer>
         <MoreActivityButtonContainer>
           <MoreActivityButton onClick={handleShowMoreActivity}>

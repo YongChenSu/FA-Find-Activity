@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import styled from "@emotion/styled";
-import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import { getMoment } from "../../utils/helpers";
 import { ThemeProvider } from "emotion-theming";
 import theme from "../../styles/base/variable";
 import WeatherCard from "../../components/common/WeatherCard";
-import { fetchCurrentWeatherData, fetchForecastData } from "../../WebAPI";
+// import { fetchCurrentWeatherData, fetchForecastData } from "../../WebAPI";
+import useWeatherAPI from "../../hooks/useWeatherAPI";
 
 const ActivityContainer = styled.div`
   font-family: ${({ theme }) => theme.$fontFamily};
@@ -35,7 +35,6 @@ const ActInfoContainer = styled.div`
   & > ul {
     padding: 0.5rem 0;
   }
-
   & > ul > li:nth-child(1) {
     color: ${({ theme }) => theme.$colorRed};
     font-weight: bold;
@@ -71,49 +70,57 @@ const actInfo = {
   introduction,
 };
 
+const AUTHORIZATION_KEY = "CWB-15DFF2FC-FFFB-49E9-BF7F-EBB9164F4B47";
+const LOCATION_NAME = "臺北";
 const LOCATION_NAME_FORECAST = "臺北市";
 
 const Activity = () => {
-  const [currentTheme, setCurrentTheme] = useState("main");
-  const [weatherData, setWeatherData] = useState({
-    observationTime: new Date(),
-    locationName: "",
-    description: "",
-    windSpeed: 0,
-    temperature: 0,
-    rainPossibility: 0,
-    comfortability: "",
-    minTemperature: "",
-    maxTemperature: "",
-    weatherCode: 0,
-    isLoading: true,
+  const [weatherData, fetchData] = useWeatherAPI({
+    locationName: LOCATION_NAME,
+    cityName: LOCATION_NAME_FORECAST,
+    authorizationKey: AUTHORIZATION_KEY,
   });
+  const [currentTheme, setCurrentTheme] = useState("main");
+
+  // const [weatherData, setWeatherData] = useState({
+  //   observationTime: new Date(),
+  //   locationName: "",
+  //   description: "",
+  //   windSpeed: 0,
+  //   temperature: 0,
+  //   rainPossibility: 0,
+  //   comfortability: "",
+  //   minTemperature: "",
+  //   maxTemperature: "",
+  //   weatherCode: 0,
+  //   isLoading: true,
+  // });
   const moment = useMemo(() => getMoment(LOCATION_NAME_FORECAST), []);
   useEffect(() => {
     setCurrentTheme(moment === "day" ? "main" : "dark");
   }, [moment]);
 
-  const fetchData = useCallback(async () => {
-    setWeatherData((prevState) => ({
-      ...prevState,
-      isLoading: true,
-    }));
+  // const fetchData = useCallback(async () => {
+  //   setWeatherData((prevState) => ({
+  //     ...prevState,
+  //     isLoading: true,
+  //   }));
 
-    const [currentWeather, weatherForecast] = await Promise.all([
-      fetchCurrentWeatherData(),
-      fetchForecastData(),
-    ]);
+  //   const [currentWeather, weatherForecast] = await Promise.all([
+  //     fetchCurrentWeatherData(),
+  //     fetchForecastData(),
+  //   ]);
 
-    setWeatherData({
-      ...currentWeather,
-      ...weatherForecast,
-      isLoading: false,
-    });
-  }, []);
+  //   setWeatherData({
+  //     ...currentWeather,
+  //     ...weatherForecast,
+  //     isLoading: false,
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [fetchData]);
 
   return (
     <>
@@ -155,5 +162,4 @@ const Activity = () => {
     </>
   );
 };
-
 export default Activity;
