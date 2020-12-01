@@ -57,9 +57,9 @@ const MoreActivityButton = styled(Button)`
 `;
 
 const Home = () => {
-  const { activityData, setActivityData } = useContext(AuthContext);
+  const { modifiedData } = useContext(AuthContext);
   const [dataNum, setDataNum] = useState(0);
-  const [categoryNum, setCategoryNum] = useState(1);
+  const [categoryNum, setCategoryNum] = useState(6);
 
   const handleChangeCategory = (categoryNum) => {
     setCategoryNum(categoryNum);
@@ -74,9 +74,7 @@ const Home = () => {
     handleShowMoreActivity();
   }, []);
 
-  const ActivityCardLists = activityData
-    .filter((data) => data.imageUrl !== "")
-    .filter((data) => Number(data.category) === categoryNum)
+  const ActivityCardLists = modifiedData
     .map((data) => (
       <ActivityCard
         imageUrl={data.imageUrl}
@@ -84,12 +82,13 @@ const Home = () => {
         time={data.endDate}
         locationName={data.showInfo[0].locationName}
         description={data.descriptionFilterHtml}
+        category={data.category}
+        id={data.id}
       />
     ))
+    .filter((data) => Number(data.props.category) === categoryNum)
     .slice(1, dataNum + 1);
-  console.log(activityData);
-  console.log(categoryNum);
-  console.log(dataNum);
+
   return (
     <>
       <Header />

@@ -1,14 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-// const CURRENT_WEATHER_BASE_URL =
-//   "https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization";
-// const FORECAST_BASE_URL =
-//   "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization";
-
 const fetchCurrentWeatherData = ({ authorizationKey, locationName }) => {
-  console.log(authorizationKey);
-  console.log(locationName);
-
   return fetch(
     `https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=${authorizationKey}&locationName=${locationName}`
   )

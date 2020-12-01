@@ -123,16 +123,23 @@ const Date = styled.div`
   color: ${({ theme }) => theme.$colorGrey};
 `;
 
-const ActivityCard = ({ title, time, locationName, description, imageUrl }) => {
+const ActivityCard = ({
+  title,
+  time,
+  locationName,
+  description,
+  imageUrl,
+  id,
+}) => {
   let [isAddToFavorite, setIsAddToFavorite] = useState(true);
   let [isSkeleton, setIsSkeleton] = useState(true);
-
   useEffect(() => {
     setTimeout(() => setIsSkeleton(false), 1500);
   }, []);
+
   return (
     <>
-      <ActivityCardContainer to="/activity">
+      <ActivityCardContainer to={`/activity/${id}`}>
         {isSkeleton ? (
           <Skeleton
             animation="wave"

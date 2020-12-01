@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Routes from "./routes";
 import { HashRouter as Router } from "react-router-dom";
 import "./styles/main.sass";
@@ -45,6 +45,15 @@ const App = () => {
     fetchActivityData();
   }, [fetchActivityData]);
 
+  const modifiedData = useMemo(() =>
+    activityData
+      .filter((data) => data.imageUrl !== "")
+      .map((data, index) => {
+        data.id = index;
+        return data;
+      })
+  );
+
   const [user, setUser] = useState(null);
   useEffect(() => {
     if (getAuthToken() !== null) {
@@ -57,9 +66,7 @@ const App = () => {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ activityData, setActivityData, user, setUser }}
-    >
+    <AuthContext.Provider value={{ user, setUser, modifiedData }}>
       <ThemeProvider theme={theme.main}>
         <Router>
           <Routes />
