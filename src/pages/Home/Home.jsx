@@ -7,7 +7,7 @@ import ActivityCard from "../../components/common/ActivityCard";
 import Footer from "../../components/common/Footer";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { AuthContext } from "../../contexts";
-
+import SearchBar from "../../components/common/SearchBar";
 const HomeContainer = styled.div`
   font-family: ${({ theme }) => theme.$fontFamily};
   padding-top: 4rem;
@@ -60,6 +60,7 @@ const Home = () => {
   const { modifiedData } = useContext(AuthContext);
   const [dataNum, setDataNum] = useState(0);
   const [categoryNum, setCategoryNum] = useState(6);
+  const [input, setInput] = useState("");
 
   const handleChangeCategory = (categoryNum) => {
     setCategoryNum(categoryNum);
@@ -69,10 +70,6 @@ const Home = () => {
   const handleShowMoreActivity = () => {
     setDataNum((dataNum) => dataNum + 9);
   };
-
-  useEffect(() => {
-    handleShowMoreActivity();
-  }, []);
 
   const ActivityCardLists = modifiedData
     .map((data) => (
@@ -89,10 +86,35 @@ const Home = () => {
     .filter((data) => Number(data.props.category) === categoryNum)
     .slice(1, dataNum + 1);
 
+  const updateInput = (input) => {
+    modifiedData
+      .filter((data) => {
+        data.title.toLowerCase().includes(input.toLowerCase());
+      })
+      .map((data) => (
+        <ActivityCard
+          imageUrl={data.imageUrl}
+          title={data.title}
+          time={data.endDate}
+          locationName={data.showInfo[0].locationName}
+          description={data.descriptionFilterHtml}
+          category={data.category}
+          id={data.id}
+        />
+      ));
+
+    return modifiedData;
+  };
+
+  useEffect(() => {
+    handleShowMoreActivity();
+  }, []);
+
   return (
     <>
       <Header />
       <HomeContainer>
+        <SearchBar input={input} onChange={updateInput} />
         <Carousel />
         <Category handleChangeCategory={handleChangeCategory} />
         <ActivityContainer>{ActivityCardLists}</ActivityContainer>

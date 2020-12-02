@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { FaSearch } from "react-icons/fa";
 
@@ -29,16 +29,15 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchBar = () => {
+const SearchBar = ({ input: keyword, onChange: setKeyword }) => {
   return (
     <>
       <SearchBarContainer action="">
         <FaSearch />
         <SearchInput
-          id="searchBar"
-          type="text"
-          name="search"
+          value={keyword}
           placeholder="Find what you like"
+          onChange={(e) => setKeyword(e.target.value)}
         />
       </SearchBarContainer>
     </>
