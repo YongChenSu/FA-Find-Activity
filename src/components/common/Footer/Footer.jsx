@@ -65,7 +65,10 @@ const ContactButton = styled(Button)`
   margin: 0 0 0.75rem 0;
   background-color: ${({ theme }) => theme.$colorRed};
   color: ${({ theme }) => theme.$colorWhite};
+  text-align: center;
 `;
+
+const Anchor = styled.a``;
 
 const Media = styled.div`
   display: flex;
@@ -76,6 +79,7 @@ const Media = styled.div`
     cursor: pointer;
     width: 2.5rem;
     height: 2.5rem;
+    color: ${({ theme }) => theme.$colorRed};
   }
 `;
 
@@ -102,10 +106,21 @@ const Footer = () => {
               <WebNameEnglish>FA Find Activity</WebNameEnglish>
             </Website>
             <Contact>
-              <ContactButton>聯絡網站製作者</ContactButton>
+              <ContactButton
+                as="a"
+                href="https://github.com/YongChenSu"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                聯絡網站製作者
+              </ContactButton>
               <Media>
-                <AiFillGithub />
-                <FaFacebook />
+                <Anchor href="https://github.com/YongChenSu/FA-Find-Activity">
+                  <AiFillGithub />
+                </Anchor>
+                <Anchor href="https://www.facebook.com/zhenxuan.su/">
+                  <FaFacebook />
+                </Anchor>
                 <ImMail4 />
               </Media>
             </Contact>
