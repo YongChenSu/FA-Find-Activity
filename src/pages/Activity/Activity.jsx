@@ -17,7 +17,14 @@ const ActivityContainer = styled.div`
 `;
 
 const ActivityWrapper = styled.div`
-  max-width: 80%;
+  width: 1200px;
+  max-width: 65%;
+  margin: 0 auto;
+`;
+
+const BannerContainer = styled.div`
+  position: relative;
+  height: 650px;
   margin: 0 auto;
 `;
 
@@ -25,19 +32,21 @@ const Banner = styled.img`
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   position: relative;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 800px;
-  max-height: 600px;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 `;
 
 const ActInfoContainer = styled.div`
-  padding: 2rem 4rem;
+  padding: 2rem 0rem;
   & > ul {
     padding: 0.5rem 0;
   }
@@ -51,6 +60,14 @@ const ActInfoContainer = styled.div`
 const Title = styled.div`
   font-size: 3rem;
   font-weight: bold;
+`;
+
+const CategoryUnorderList = styled.ul``;
+
+const CategoryOrderList = styled.li`
+  line-height: 2.5rem
+  text-align: justify;
+  word-break: break-word;
 `;
 
 const WeatherContainer = styled.div`
@@ -88,10 +105,11 @@ const Activity = () => {
 
   modifiedData.map((data) => {
     if (data.id === Number(id)) {
-      console.log(data);
+      console.log(data.category);
       currentPageActivityData = {
         imageUrl: data.imageUrl,
         title: data.title,
+        category: data.category,
         tag: data.category,
         time: data.showInfo[0].endTime,
         location: data.showInfo[0].location,
@@ -103,30 +121,69 @@ const Activity = () => {
   useEffect(() => {
     setCurrentTheme(moment === "day" ? "main" : "dark");
   }, [moment]);
+
+  const cateGoryCode2Type = (categoryCode) => {
+    let type = "";
+    switch (categoryCode) {
+      case "1":
+        type = "音樂";
+        break;
+      case "4":
+        type = "親子";
+        break;
+      case "6":
+        type = "展覽";
+        break;
+      case "7":
+        type = "講座";
+        break;
+      case "8":
+        type = "電影";
+        break;
+      default:
+        type = "";
+    }
+    return type;
+  };
+
   return (
     <>
       <Header />
       <ActivityContainer>
         <ActivityWrapper>
-          <Banner src={currentPageActivityData.imageUrl} />
+          <BannerContainer>
+            <Banner src={currentPageActivityData.imageUrl} />
+          </BannerContainer>
           <ActInfoContainer>
             <Title>{currentPageActivityData.title}</Title>
-            <ul>
-              <li>分類</li>
-              <li>{currentPageActivityData.category}</li>
-            </ul>
-            <ul>
-              <li>時間</li>
-              <li>{currentPageActivityData.time}</li>
-            </ul>
-            <ul>
-              <li>地點</li>
-              <li>{currentPageActivityData.location}</li>
-            </ul>
-            <ul>
-              <li>簡介</li>
-              <li>{currentPageActivityData.introduction}</li>
-            </ul>
+
+            <CategoryUnorderList>
+              <CategoryOrderList>分類</CategoryOrderList>
+              <CategoryOrderList>
+                {cateGoryCode2Type(currentPageActivityData.category)}
+              </CategoryOrderList>
+            </CategoryUnorderList>
+
+            <CategoryUnorderList>
+              <CategoryOrderList>時間</CategoryOrderList>
+              <CategoryOrderList>
+                {currentPageActivityData.time}
+              </CategoryOrderList>
+            </CategoryUnorderList>
+
+            <CategoryUnorderList>
+              <CategoryOrderList>地點</CategoryOrderList>
+              <CategoryOrderList>
+                {currentPageActivityData.location}
+              </CategoryOrderList>
+            </CategoryUnorderList>
+
+            <CategoryUnorderList>
+              <CategoryOrderList>簡介</CategoryOrderList>
+              <CategoryOrderList>
+                {currentPageActivityData.introduction}
+              </CategoryOrderList>
+            </CategoryUnorderList>
           </ActInfoContainer>
           <ThemeProvider theme={theme[currentTheme]}>
             <WeatherContainer>

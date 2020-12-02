@@ -40,7 +40,8 @@ const ActivityCap = styled.div`
 const ActivityImg = styled.img`
   border-top-left-radius: ${({ theme }) => theme.$borderRadius};
   border-top-right-radius: ${({ theme }) => theme.$borderRadius};
-  height: 220px;
+  height: 100%;
+  width: 100%;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
