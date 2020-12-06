@@ -60,7 +60,7 @@ const Home = () => {
   const { modifiedData } = useContext(AuthContext);
   const [dataNum, setDataNum] = useState(0);
   const [categoryNum, setCategoryNum] = useState(6);
-  const [input, setInput] = useState("");
+  const [filteredInput, setFilteredInput] = useState(null);
 
   const handleChangeCategory = (categoryNum) => {
     setCategoryNum(categoryNum);
@@ -71,7 +71,18 @@ const Home = () => {
     setDataNum((dataNum) => dataNum + 9);
   };
 
+  const handleUpdateInput = (e) => {
+    setFilteredInput(e.target.value);
+  };
+
+  console.log(filteredInput);
+
   const ActivityCardLists = modifiedData
+    .filter(
+      setFilteredInput === null
+        ? (data) => data
+        : (data) => data.title === filteredInput
+    )
     .map((data) => (
       <ActivityCard
         imageUrl={data.imageUrl}
@@ -84,27 +95,7 @@ const Home = () => {
       />
     ))
     .filter((data) => Number(data.props.category) === categoryNum)
-    .slice(1, dataNum + 1);
-
-  const updateInput = (input) => {
-    modifiedData
-      .filter((data) => {
-        data.title.toLowerCase().includes(input.toLowerCase());
-      })
-      .map((data) => (
-        <ActivityCard
-          imageUrl={data.imageUrl}
-          title={data.title}
-          time={data.endDate}
-          locationName={data.showInfo[0].locationName}
-          description={data.descriptionFilterHtml}
-          category={data.category}
-          id={data.id}
-        />
-      ));
-
-    return modifiedData;
-  };
+    .slice(0, dataNum);
 
   useEffect(() => {
     handleShowMoreActivity();
@@ -114,7 +105,7 @@ const Home = () => {
     <>
       <Header />
       <HomeContainer>
-        <SearchBar input={input} onChange={updateInput} />
+        <SearchBar handleChange={handleUpdateInput} />
         <Carousel />
         <Category handleChangeCategory={handleChangeCategory} />
         <ActivityContainer>{ActivityCardLists}</ActivityContainer>

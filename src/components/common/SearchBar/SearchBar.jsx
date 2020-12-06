@@ -29,15 +29,14 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchBar = ({ input: keyword, onChange: setKeyword }) => {
+const SearchBar = (props) => {
   return (
     <>
       <SearchBarContainer action="">
         <FaSearch />
         <SearchInput
-          value={keyword}
           placeholder="Find what you like"
-          onChange={(e) => setKeyword(e.target.value)}
+          onChange={props.handleChange}
         />
       </SearchBarContainer>
     </>
