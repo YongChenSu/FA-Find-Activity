@@ -28,11 +28,16 @@ const Info = styled.div`
 `;
 
 const FanPage = styled.div`
-  color: ${({ theme }) => theme.$colorRed};
-  background-color: ${({ theme }) => theme.$colorYellow};
+  display: flex;
+  color: ${({ theme }) => theme.$colorLightOrange};
+  background-color: ${({ theme }) => theme.$colorRed};
   height: 80px;
   width: 180px;
   border-radius: ${({ theme }) => theme.$borderRadius};
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  font-size: 1.5rem;
 `;
 
 const Website = styled.div`
@@ -100,7 +105,7 @@ const Footer = () => {
       <Container>
         <Wrapper>
           <Info>
-            <FanPage />
+            <FanPage>FA 找活動</FanPage>
             <Website>
               <Logo src={LogoImg} />
               <WebNameEnglish>FA Find Activity</WebNameEnglish>
@@ -121,7 +126,9 @@ const Footer = () => {
                 <Anchor href="https://www.facebook.com/zhenxuan.su/">
                   <FaFacebook />
                 </Anchor>
-                <ImMail4 />
+                <ImMail4
+                  onClick={() => alert("email：yongchensu0@gmail.com")}
+                />
               </Media>
             </Contact>
           </Info>
