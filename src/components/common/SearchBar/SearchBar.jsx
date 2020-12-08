@@ -29,14 +29,14 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchBar = (props) => {
+const SearchBar = ({ handleUpdateInput }) => {
   return (
     <>
       <SearchBarContainer action="">
         <FaSearch />
         <SearchInput
           placeholder="Find what you like"
-          onChange={props.handleChange}
+          onChange={handleUpdateInput}
         />
       </SearchBarContainer>
     </>
