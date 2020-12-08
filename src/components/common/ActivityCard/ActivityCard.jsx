@@ -59,9 +59,9 @@ const ActivityTitle = styled.div`
   text-overflow: ellipsis;
   word-break: break-word;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  height: 3.25rem;
+  height: 3.5rem;
   font-size: 1.25rem;
   line-height: 1.25rem;
   margin: 0.25rem 0;
