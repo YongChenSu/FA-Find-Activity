@@ -208,10 +208,6 @@ const SignInPanel = ({ handleToggleSignInUp }) => {
         <ButtonWrapper>
           <SignInButton>登入</SignInButton>
           {errMessage && <ErrMessage>{errMessage}</ErrMessage>}
-          <GoogleSignButton>
-            <FcGoogle />
-            GOOGLE 帳號快速登入
-          </GoogleSignButton>
         </ButtonWrapper>
       </Form>
     </FormContainer>
