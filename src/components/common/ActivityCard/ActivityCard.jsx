@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import Button from "../Button";
-import logoImg from "../../../assets/img/FA_logo.png";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 

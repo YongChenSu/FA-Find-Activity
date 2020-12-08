@@ -64,7 +64,7 @@ const HeaderNav = styled.div`
   box-sizing: border-box;
 `;
 
-const HeaderHome = styled(Link)`
+const HeaderFindActivity = styled(Link)`
   padding: 0.5rem;
   text-align: center;
   width: 7rem;
@@ -79,7 +79,7 @@ const HeaderHome = styled(Link)`
   }
 `;
 
-const HeaderNewActivity = styled(HeaderHome)``;
+const HeaderHome = styled(HeaderFindActivity)``;
 
 const Profile = styled(Link)`
   svg {
@@ -93,7 +93,7 @@ const Profile = styled(Link)`
   }
 `;
 
-const Header = () => {
+const Header = ({ handleUpdateInput }) => {
   const [isShowNewActivity] = useState(true);
   const { user, setUser } = useContext(AuthContext);
 
@@ -109,16 +109,12 @@ const Header = () => {
               <WebnameEnglish>Find Activity</WebnameEnglish>
               <WebnameChinese>找活動</WebnameChinese>
             </WebnameContainer>
-            <SearchBar />
+            <SearchBar handleUpdateInput={handleUpdateInput} />
           </HeaderIntro>
           <HeaderNav>
-            <HeaderHome to="/find-activity">找活動</HeaderHome>
-            {isShowNewActivity ? (
-              <HeaderNewActivity to="/new-activity">建立活動</HeaderNewActivity>
-            ) : (
-              ""
-            )}
-            <Profile to={user ? "/profile-page" : "/login-page"}>
+            <HeaderHome to="/">首頁</HeaderHome>
+            <HeaderFindActivity to="/find-activity">找活動</HeaderFindActivity>
+            <Profile to={user ? "/" : "/login-page"}>
               <FaUserCircle />
             </Profile>
           </HeaderNav>
