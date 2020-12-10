@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
+import { MEDIA_QUERY_MD, MEDIA_QUERY_LG } from "../../styles/base/constants";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
 import Category from "../../components/common/Category";
@@ -7,6 +8,7 @@ import ActivityCard from "../../components/common/ActivityCard";
 import Footer from "../../components/common/Footer";
 import { FaAngleDoubleRight, FaAngleUp } from "react-icons/fa";
 import { AuthContext } from "../../contexts";
+
 const HomeContainer = styled.div`
   font-family: ${({ theme }) => theme.$fontFamily};
   padding-top: 4rem;
@@ -29,6 +31,11 @@ const ActivityContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 80%;
+
+  ${MEDIA_QUERY_LG} {
+    width: 100%;
+  }
 `;
 
 const MoreActivityButtonContainer = styled.div`
