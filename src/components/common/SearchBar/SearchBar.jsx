@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { FaSearch } from "react-icons/fa";
+import { MEDIA_QUERY_MD } from "../../../styles/base/constants";
 
 const SearchBarContainer = styled.form`
   display: flex;
@@ -15,7 +16,7 @@ const SearchInput = styled.input`
   border-radius: 3px;
   padding: 1px 5px;
   border: 1px solid ${({ theme }) => theme.$colorLightGrey};
-  width: 250px;
+  max-width: 250px;
   height: 35px;
   font-size: 1rem;
   color: ${({ theme }) => theme.$colorGreen};
@@ -26,6 +27,10 @@ const SearchInput = styled.input`
     outline: 0;
     box-shadow: 0 0 1px 1px ${({ theme }) => theme.$colorGrey};
     border: 0;
+  }
+
+  ${MEDIA_QUERY_MD} {
+    width: 250px;
   }
 `;
 

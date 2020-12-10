@@ -1,15 +1,8 @@
 import React, { useCallback } from "react";
-import { Link } from "react-router-dom";
-import {
-  FaUserFriends,
-  FaMusic,
-  FaChild,
-  FaBook,
-  FaDoorOpen,
-} from "react-icons/fa";
-import { BiCameraMovie } from "react-icons/bi";
-
 import styled from "@emotion/styled";
+import { MEDIA_QUERY_MD } from "../../../styles/base/constants";
+import { FaMusic, FaChild, FaBook, FaDoorOpen } from "react-icons/fa";
+import { BiCameraMovie } from "react-icons/bi";
 
 const CategoryContainer = styled.div`
   display: flex;
@@ -24,12 +17,12 @@ const CategoryItemRed = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 7rem;
-  width: 7rem;
+  height: 5rem;
+  width: 5rem;
   background-color: ${({ theme }) => theme.$colorRed};
   color: ${({ theme }) => theme.$colorWhite};
   border-radius: 50%;
-  font-size: 1.25rem;
+  font-size: 1rem;
   border: 4px solid ${({ theme }) => theme.$colorYellow};
   display: flex;
   flex-direction: column;
@@ -37,16 +30,16 @@ const CategoryItemRed = styled.div`
   align-items: center;
   cursor: pointer;
 
+  svg {
+    font-size: 2.25rem;
+    margin: 0.5rem 0 0.25rem 0;
+    color: ${({ theme }) => theme.$colorWhite};
+  }
+
   &:focus {
     box-shadow: 0 0 1px 2.5px ${({ theme }) => theme.$colorGreen};
     outline: 0;
     z-index: 1;
-  }
-
-  svg {
-    font-size: 3rem;
-    margin: 0.5rem 0 0.25rem 0;
-    color: ${({ theme }) => theme.$colorWhite};
   }
 
   &:hover {
@@ -57,6 +50,16 @@ const CategoryItemRed = styled.div`
     svg {
       transition-duration: 0.1s;
       transform: scale(1.05);
+    }
+  }
+
+  ${MEDIA_QUERY_MD} {
+    height: 7rem;
+    width: 7rem;
+    font-size: 1.25rem;
+
+    svg {
+      font-size: 3rem;
     }
   }
 `;
@@ -74,23 +77,20 @@ const movieCategoryNum = 8;
 const Category = ({ handleChangeCategory }) => {
   return (
     <CategoryContainer>
-      {/* <Link to="find-activity"> */}
       <CategoryItemRed
         onClick={useCallback(() => handleChangeCategory(lectureCategoryNum))}
       >
         <FaBook />
         <div>講座</div>
       </CategoryItemRed>
-      {/* </Link> */}
-      {/* <Link to="find-activity"> */}
+
       <CategoryItemGreen
         onClick={useCallback(() => handleChangeCategory(musicCategoryNum))}
       >
         <FaMusic />
         <div>音樂</div>
       </CategoryItemGreen>
-      {/* </Link> */}
-      {/* <Link to="find-activity"> */}
+
       <CategoryItemRed
         onClick={useCallback(() =>
           handleChangeCategory(parentChildCategoryNum)
@@ -99,23 +99,20 @@ const Category = ({ handleChangeCategory }) => {
         <FaChild />
         <div>親子</div>
       </CategoryItemRed>
-      {/* </Link> */}
-      {/* <Link to="find-activity"> */}
+
       <CategoryItemGreen
         onClick={useCallback(() => handleChangeCategory(exhibitionCategoryNum))}
       >
         <FaDoorOpen />
         <div>展覽</div>
       </CategoryItemGreen>
-      {/* </Link> */}
-      {/* <Link to="find-activity"> */}
+
       <CategoryItemRed
         onClick={useCallback(() => handleChangeCategory(movieCategoryNum))}
       >
         <BiCameraMovie />
         <div>電影</div>
       </CategoryItemRed>
-      {/* </Link> */}
     </CategoryContainer>
   );
 };
