@@ -19,7 +19,6 @@ const ActivityCardContainer = styled(Link)`
   width: 100%;
   height: 125px;
   border-radius: ${({ theme }) => theme.$borderRadius};
-
   margin: 1rem 0;
   box-shadow: 3px 5px 8px 3px rgba(0, 0, 0, 0.15);
   font-family: ${({ theme }) => theme.$fontFamily};
