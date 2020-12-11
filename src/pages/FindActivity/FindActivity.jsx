@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useContext } from "react";
 import styled from "@emotion/styled";
+import { MEDIA_QUERY_LG } from "../../styles/base/constants";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
 import Category from "../../components/common/Category";
@@ -18,9 +19,16 @@ const FindActivityContainer = styled.div`
 `;
 
 const ActivityContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 80%;
+
+  ${MEDIA_QUERY_LG} {
+    width: 100%;
+  }
 `;
 
 const MoreActButtonContainer = styled.div`

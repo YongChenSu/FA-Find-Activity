@@ -7,5 +7,4 @@ export const MEDIA_QUERY_XL = "@media screen and (min-width: 1200px)";
 export const MEDIA_QUERY_HEADER_WEBNAME =
   "@media screen and (min-width: 1030px)";
 
-export const MEDIA_QUERY_ACTIVITYCARDCONTAINER =
-  "@media screen and (min-width: 1280px)";
+export const MEDIA_QUERY_CATEGORY = "@media screen and (min-width: 490px)";

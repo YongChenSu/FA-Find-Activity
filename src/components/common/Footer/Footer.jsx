@@ -1,6 +1,11 @@
 import React from "react";
 import Button from "../Button";
 import styled from "@emotion/styled";
+import {
+  MEDIA_QUERY_XS,
+  MEDIA_QUERY_SM,
+  MEDIA_QUERY_MD,
+} from "../../../styles/base/constants";
 import LogoImg from "../../../assets/img/FA_logo.png";
 import { AiFillGithub } from "react-icons/ai";
 import { FaFacebook } from "react-icons/fa";
@@ -16,19 +21,26 @@ const Wrapper = styled.div`
   display: flex;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 1rem 2rem;
 `;
 
 const Info = styled.div`
   width: 100%;
-  height: 8rem;
-  display: flex;
+
+  display: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+
+  ${MEDIA_QUERY_XS} {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 const FanPage = styled.div`
-  display: flex;
+  display: none;
   color: ${({ theme }) => theme.$colorLightOrange};
   background-color: ${({ theme }) => theme.$colorRed};
   height: 80px;
@@ -38,46 +50,60 @@ const FanPage = styled.div`
   align-items: center;
   opacity: 0.8;
   font-size: 1.5rem;
+
+  ${MEDIA_QUERY_MD} {
+    display: flex;
+  }
 `;
 
 const Website = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   font-size: 1.5rem;
 `;
 
 const Logo = styled.img`
+  display: none;
   cursor: pointer;
   height: 4rem;
   width: 4rem;
   border-radius: 50%;
+
+  ${MEDIA_QUERY_XS} {
+    display: flex;
+  }
 `;
 
 const WebNameEnglish = styled.div`
   margin: 0.5rem 0.75rem;
   color: ${({ theme }) => theme.$colorRed};
-  display: flex;
   align-items: center;
 `;
 
 const Contact = styled.ul`
   display: flex;
   flex-direction: column;
-  width: 220px;
 `;
 
 const ContactButton = styled(Button)`
+  display: none;
   margin: 0 0 0.75rem 0;
   background-color: ${({ theme }) => theme.$colorRed};
   color: ${({ theme }) => theme.$colorWhite};
   text-align: center;
+
+  ${MEDIA_QUERY_SM} {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const Anchor = styled.a``;
 
 const Media = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 
   svg {
@@ -90,11 +116,12 @@ const Media = styled.div`
 
 const Copyright = styled.div`
   display: flex;
+  text-align: center;
+  padding: 0.5rem;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   color: ${({ theme }) => theme.$colorWhite};
-  height: 1.5rem;
   background-color: ${({ theme }) => theme.$colorRed};
   font-family: ${({ theme }) => theme.$fontFamily};
 `;

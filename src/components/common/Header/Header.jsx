@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import SearchBar from "../SearchBar";
 import LogoImg from "../../../assets/img/FA_logo_bgwhite.png";
 import { Link } from "react-router-dom";
@@ -31,10 +31,17 @@ const HeaderContainer = styled.div`
 
 const HeaderWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   max-width: 1200px;
   margin: 0 auto;
   width: 80%;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+
+  ${MEDIA_QUERY_SM} {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
 const HeaderIntro = styled.div`
@@ -84,10 +91,14 @@ const WebnameChinese = styled.div`
 `;
 
 const HeaderNav = styled.div`
-  display: flex;
+  display: none;
   align-items: center;
   color: ${({ theme }) => theme.$colorGrey};
   box-sizing: border-box;
+
+  ${MEDIA_QUERY_SM} {
+    display: flex;
+  }
 `;
 
 const HeaderFindActivity = styled(Link)`

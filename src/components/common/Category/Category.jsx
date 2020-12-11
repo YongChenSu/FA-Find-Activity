@@ -1,38 +1,47 @@
 import React, { useCallback } from "react";
 import styled from "@emotion/styled";
-import { MEDIA_QUERY_MD } from "../../../styles/base/constants";
+import {
+  MEDIA_QUERY_CATEGORY,
+  MEDIA_QUERY_SM,
+  MEDIA_QUERY_MD,
+} from "../../../styles/base/constants";
 import { FaMusic, FaChild, FaBook, FaDoorOpen } from "react-icons/fa";
 import { BiCameraMovie } from "react-icons/bi";
 
 const CategoryContainer = styled.div`
   display: flex;
+  flex-direction: column;
   max-width: 1200px;
+  width: 80%;
   justify-content: space-around;
-  padding: 2rem 4rem;
+  padding: 2rem 0;
   margin: 0 auto;
   font-family: ${({ theme }) => theme.$fontFamily};
+
+  ${MEDIA_QUERY_CATEGORY} {
+    flex-direction: row;
+  }
 `;
 
 const CategoryItemRed = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 5rem;
-  width: 5rem;
+  height: 4rem;
+  width: 100%;
   background-color: ${({ theme }) => theme.$colorRed};
   color: ${({ theme }) => theme.$colorWhite};
-  border-radius: 50%;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 1.5rem;
   border: 4px solid ${({ theme }) => theme.$colorYellow};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin: 0.25rem;
+
   cursor: pointer;
 
   svg {
-    font-size: 2.25rem;
-    margin: 0.5rem 0 0.25rem 0;
+    font-size: 1.5rem;
+    margin: 0.5rem;
     color: ${({ theme }) => theme.$colorWhite};
   }
 
@@ -50,6 +59,33 @@ const CategoryItemRed = styled.div`
     svg {
       transition-duration: 0.1s;
       transform: scale(1.05);
+    }
+  }
+
+  ${MEDIA_QUERY_CATEGORY} {
+    //490
+    flex-direction: column;
+    border-radius: 50%;
+
+    height: 4rem;
+    width: 4rem;
+    font-size: 1rem;
+
+    svg {
+      margin: 0.5rem 0 0.25rem 0;
+      font-size: 1.5rem;
+    }
+  }
+
+  ${MEDIA_QUERY_SM} {
+    //576
+    border-radius: 50%;
+    height: 5.25rem;
+    width: 5.25rem;
+    font-size: 1rem;
+
+    svg {
+      font-size: 1.75rem;
     }
   }
 

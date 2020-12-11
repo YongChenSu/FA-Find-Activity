@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
-import { MEDIA_QUERY_MD, MEDIA_QUERY_LG } from "../../styles/base/constants";
+import { MEDIA_QUERY_LG } from "../../styles/base/constants";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
 import Category from "../../components/common/Category";
 import ActivityCard from "../../components/common/ActivityCard";
 import Footer from "../../components/common/Footer";
-import { FaAngleDoubleRight, FaAngleUp } from "react-icons/fa";
+import { FaAngleDoubleRight } from "react-icons/fa";
 import { AuthContext } from "../../contexts";
 
 const HomeContainer = styled.div`
@@ -20,7 +20,7 @@ const Banner = styled.img`
   justify-content: center;
   text-align: center;
   width: 80%;
-  height: 380px;
+  height: auto;
   max-width: 1200px;
   margin: 0 auto;
 `;

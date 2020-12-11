@@ -10,7 +10,6 @@ import {
 import Button from "../Button";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
-
 import { Skeleton } from "@material-ui/lab";
 
 const ActivityCardContainer = styled(Link)`
@@ -19,7 +18,6 @@ const ActivityCardContainer = styled(Link)`
   width: 100%;
   height: 125px;
   border-radius: ${({ theme }) => theme.$borderRadius};
-
   margin: 1rem 0;
   box-shadow: 3px 5px 8px 3px rgba(0, 0, 0, 0.15);
   font-family: ${({ theme }) => theme.$fontFamily};
@@ -214,7 +212,7 @@ const ActivityCard = ({
   let [isAddToFavorite, setIsAddToFavorite] = useState(true);
   let [isSkeleton, setIsSkeleton] = useState(true);
   useEffect(() => {
-    setTimeout(() => setIsSkeleton(false), 1500);
+    setTimeout(() => setIsSkeleton(false), 2000);
   }, []);
 
   return (
