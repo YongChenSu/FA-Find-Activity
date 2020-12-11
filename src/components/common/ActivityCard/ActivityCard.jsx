@@ -10,7 +10,6 @@ import {
 import Button from "../Button";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
-
 import { Skeleton } from "@material-ui/lab";
 
 const ActivityCardContainer = styled(Link)`
@@ -213,7 +212,7 @@ const ActivityCard = ({
   let [isAddToFavorite, setIsAddToFavorite] = useState(true);
   let [isSkeleton, setIsSkeleton] = useState(true);
   useEffect(() => {
-    setTimeout(() => setIsSkeleton(false), 1500);
+    setTimeout(() => setIsSkeleton(false), 2000);
   }, []);
 
   return (
