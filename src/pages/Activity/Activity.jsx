@@ -28,7 +28,7 @@ const BannerContainer = styled.div`
   margin: 0 auto;
 `;
 
-const Banner = styled.img`
+const ActivityBanner = styled.img`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +45,7 @@ const Banner = styled.img`
   margin: auto;
 `;
 
-const ActInfoContainer = styled.div`
+const ActivityInfoContainer = styled.div`
   padding: 2rem 0rem;
   & > ul {
     padding: 0.5rem 0;
@@ -65,7 +65,7 @@ const Title = styled.div`
 const CategoryUnorderList = styled.ul``;
 
 const CategoryOrderList = styled.li`
-  line-height: 2.5rem
+  line-height: 2.5rem;
   text-align: justify;
   word-break: break-word;
 `;
@@ -152,9 +152,9 @@ const Activity = () => {
       <ActivityContainer>
         <ActivityWrapper>
           <BannerContainer>
-            <Banner src={currentPageActivityData.imageUrl} />
+            <ActivityBanner src={currentPageActivityData.imageUrl} />
           </BannerContainer>
-          <ActInfoContainer>
+          <ActivityInfoContainer>
             <Title>{currentPageActivityData.title}</Title>
 
             <CategoryUnorderList>
@@ -184,7 +184,7 @@ const Activity = () => {
                 {currentPageActivityData.introduction}
               </CategoryOrderList>
             </CategoryUnorderList>
-          </ActInfoContainer>
+          </ActivityInfoContainer>
           <ThemeProvider theme={theme[currentTheme]}>
             <WeatherContainer>
               <WeatherCard
