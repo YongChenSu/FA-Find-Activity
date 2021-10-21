@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../contexts";
 import { setAuthToken } from "../utils/utils";
 import { register, getMe } from "../WebAPI";
-\;
-
 import { MdEmail } from "react-icons/md";
 import { TiKey, TiUserAdd } from "react-icons/ti";
 import { FaSignInAlt, FaUserCircle } from "react-icons/fa";
